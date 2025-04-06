@@ -1,0 +1,8 @@
+asyncio
+pymupdf==1.18.17
+pymupdf4llm
+openai-agents
+pydantic
+dataclasses
+python-docx
+python-dotenv
