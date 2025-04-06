@@ -1,4 +1,4 @@
-# Regxelerator Generative AI Use Case Library
+# Regxelerator's Generative AI Use Case Library
 
 ## Overview
 
