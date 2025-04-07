@@ -1,0 +1,7 @@
+python-dotenv
+openai
+python-docx
+pandas
+python-dotenv
+openpyxl
+ruff
