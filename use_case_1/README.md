@@ -23,21 +23,18 @@ For additional information about the workflow and the individual steps, please v
 ## Structure of the use case directory
 
 ```
-use_case_1 (Classifying Financial Consumer Complaints)/
+use_case_1/
 |___input/
-    - file.json
+    - Use case specific input files (i.e. Excel file with synthetic complaints data)
 ├── retrieval/
 │   ├── embedder.py       # Functions to convert text into high-dimensional vector embeddings.
 │   └── retriever.py      # Functions to compute similarity (e.g., cosine) and retrieve most relevant segments for given requirements.
 │
-├── utils/
-│   ├── pdf_parser.py     # Reads PDF files, extracts text, converts to Markdown, and segments into logical structured sections.
-│   └── file_handler.py   # Identifies file type (PDF, DOCX, JSON), and delegates to appropriate parser (e.g., `pdf_parser.py`). Manages I/O.
-│
 ├── llm/
-│   └── llm_engine.py     # Handles prompt formatting and communicates with LLMs (e.g., GPT-4, Claude). Ensures output follows a structured schema (summary, assessment, score).
+│   └── llm_engine.py     # Handles prompt formatting and communication with LLMs
 │
 ├── scripts/
+│   - Scripts for the individual classification techniques
 ├── main.py
 │   - The orchestration script that executes the classification for the selected technique
 │
