@@ -18,6 +18,16 @@ The repository is organized as a modular library, with each use case implemented
 * Helper scripts such as for document processing, embedding and retrieval and LLM-specific components
 * A main orchestration script (main.py) that runs the full pipeline as an end-to-end automated workflow
 
+## Current use cases
+
+* Use case 1: Classifying financial consumer complaints
+* Use case 2: Assessing compliance of social media promotions
+* Use case 3: Assessing the effectiveness of board meetings via meeting minutes
+* Use case 4: Analyzing unstructured consultation feedback
+* Use case 5: Performing basic comparative regulatory analysis
+* Use case 6: Assessing compliance of outsourcing agreements
+* Use case 7: Augmenting fit and proper reviews
+* Use case 8: Synthesizing policy and research papers using agentic flows (beta)
 
 ## Setup & installation
 
@@ -55,7 +65,7 @@ cd use_case_1
 
 3. Enter your OpenAI API in `.env`
 ```sh
-OPEN_API_KEY='ENTER YOUR API';
+OPEN_API_KEY='ENTER YOUR API'
 ```
 
 4. Use the example input files or alternatively place your own files into the ```input``` directory.
