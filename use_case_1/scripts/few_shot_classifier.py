@@ -42,7 +42,7 @@ def few_shot_classification(input_file: str, output_path: str) -> str:
 
     df.insert(loc=len(df.columns), column="Category_model_response", value=categories)
     output_file = os.path.join(
-        output_path, "Complaint Data - Synthetic - Categorized.xlsx"
+        output_path, "complaint_data_synthetic_categorized.xlsx"
     )
 
     df.to_excel(output_file, index=False)
