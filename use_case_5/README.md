@@ -22,12 +22,9 @@ For additional information about the workflow and the individual steps, please v
 ## Structure of the use case directory
 
 ```
-use_case_1/
+use_case_5/
 |___input/
-    - file.json
-├── retrieval/
-│   ├── embedder.py       # Functions to convert text into high-dimensional vector embeddings.
-│   └── retriever.py      # Functions to compute similarity (e.g., cosine) and retrieve most relevant segments for given requirements.
+    - Use case specific input files (i.e. crowdfunding regulations)
 │
 ├── utils/
 │   ├── pdf_parser.py     # Reads PDF files and extracts their text
