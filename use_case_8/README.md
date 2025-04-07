@@ -23,13 +23,13 @@ For additional information about the workflow and the individual steps, please v
 ```
 use_case_8/
 |___input/
-    - file.json
+    - Use case specific input files (i.e. research and policy papers)
 ├── retrieval/
 │   ├── embedder.py       # Functions to upload extracted text to a vector store.
 │   └── retriever.py      # Functions to perform vector store operations including listing and searching files
 │
 ├── utils/
-│   ├── pdf_parser.py     # Reads PDF files, extracts text, converts to Markdown, and segments into logical structured sections.
+│   ├── pdf_parser.py     # Reads PDF files, extracts text, and converts text to Markdown
 │   └── file_handler.py   # Multiple functions to read and write to JSON files and to create the Word report
 │
 ├── llm/
