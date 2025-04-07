@@ -1,0 +1,72 @@
+[
+    {
+      "id": "OR01",
+      "requirement_label": "Scope of services",
+      "requirement_description": "Scope of services: Description of the scope of the outsourcing agreement including a specification of all outsourced functions or services"
+    },
+    {
+      "id": "OR02",
+      "requirement_label": "Contract duration and key dates",
+      "requirement_description": "Contract duration and key dates: The start date, renewal date, end date, and any notice periods for termination or renewal of the outsourcing agreement"
+    },
+    {
+      "id": "OR03",
+      "requirement_label": "Sub-contracting",
+      "requirement_description": "Sub-contracting: Specification of whether and under what conditions the service provider may sub-contract any portion of the outsourced services, including requirements for obtaining prior approval from the institution, and provisions establishing the primary service provider's contractual responsibility for the performance and risk management of all sub-contractors."
+    },
+    {
+      "id": "OR04",
+      "requirement_label": "Performance and service levels",
+      "requirement_description": "Performance and service levels: Description of the required service levels, including quantitative and/or qualitative performance metrics (e.g., KPIs, SLAs), obligations for the service provider to achieve or surpass these targets, and procedures for regular monitoring, remedial actions, and timely reporting when performance falls below agreed standards."
+    },
+    {
+      "id": "OR05",
+      "requirement_label": "Operational and risk management standards",
+      "requirement_description": "Operational and risk management standards: Description of required operational controls, internal control procedures, and risk management practices the service provider must implement, including obligations to comply with relevant institutional policies, procedures, and applicable regulatory standards."
+    },
+    {
+      "id": "OR06",
+      "requirement_label": "Business continuity management and disaster recovery",
+      "requirement_description": "Business continuity management and disaster recovery: Requirements for the service provider to establish and maintain effective business continuity and disaster recovery plans, including obligations for regular testing and coordination with the institution's own continuity protocols to ensure resilience of outsourced services."
+    },
+    {
+      "id": "OR07",
+      "requirement_label": "Data ownership and location",
+      "requirement_description": "Data ownership and location: Specification of geographic locations (regions or countries) where outsourced functions or services will be delivered, and where data will be stored, processed, or transferred, including mandatory notification procedures if the service provider intends to change data-processing locations."
+    },
+    {
+      "id": "OR08",
+      "requirement_label": "Data confidentiality",
+      "requirement_description": "Data confidentiality: Requirements detailing obligations to protect data confidentiality, integrity, and availability (including customer data), specifying standards for secure handling, transmission, storage, and disposal of information."
+    },
+    {
+      "id": "OR09",
+      "requirement_label": "Audit and inspection rights",
+      "requirement_description": "Audit and inspection rights: Specification of the institution's and regulatory authorities' rights (including designated third parties) to audit, inspect, and obtain copies of relevant records held at the premises of the service provider or its sub-contractors, including obligations for the service provider to provide unimpeded access and full cooperation to competent supervisory authorities."
+    },
+    {
+      "id": "OR10",
+      "requirement_label": "Monitoring and reporting",
+      "requirement_description": "Monitoring and reporting: Specification of the ongoing reporting obligations (including frequency, format, and content) related to operational performance and risk indicators."
+    },
+    {
+      "id": "OR11",
+      "requirement_label": "Notification of adverse developments",
+      "requirement_description": "Notification of adverse developments: Description of specific events or circumstances requiring timely notification by the service provider regarding negative developments (e.g., security breaches, financial instability), enabling the institution to implement prompt risk mitigation measures and fulfill related regulatory reporting obligations."
+    },
+    {
+      "id": "OR12",
+      "requirement_label": "Liability, indemnity, and insurance",
+      "requirement_description": "Liability, indemnity, and insurance: Specification of how liability is allocated between the parties, including provisions for indemnification and minimum requirements for insurance coverage to protect against losses, breaches, or operational disruptions."
+    },
+    {
+      "id": "OR13",
+      "requirement_label": "Termination rights",
+      "requirement_description": "Termination rights: Description of termination rights and related minimum notice periods, including conditions under which the institution may terminate the outsourcing arrangement, such as changes in ownership or control of the service provider, insolvency, receivership, judicial management, or a demonstrable deterioration in the service provider’s ability to fulfill contractual obligations."
+    },
+    {
+      "id": "OR14",
+      "requirement_label": "Dispute resolution",
+      "requirement_description": "Dispute resolution: Description of procedures for resolving disputes, such as the agreed processes, escalation paths, governing law, and the jurisdiction for legal proceedings."
+    }
+  ]
