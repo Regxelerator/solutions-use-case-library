@@ -33,7 +33,7 @@ use_case_8/
 │   └── file_handler.py   # Multiple functions to read and write to JSON files and to create the Word report
 │
 ├── llm/
-│   └── llm_engine.py     # Handles prompt formatting and communicates with LLMs (e.g., GPT-4, Claude). Ensures output follows a structured schema (summary, assessment, score).
+│   └── llm_engine.py     # Handles prompt formatting and communication with LLMs.
 │
 ├── scripts/
 │   - Scripts for the seven individual agentic modules
