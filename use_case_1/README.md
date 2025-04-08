@@ -30,6 +30,9 @@ use_case_1/
 │   ├── embedder.py       # Functions to convert text into high-dimensional vector embeddings.
 │   └── retriever.py      # Functions to compute similarity (e.g., cosine) and retrieve most relevant segments for given requirements.
 │
+├── utils/
+│   └── file_handler.py   # Handles certain file operations including preparation of the fine-tuning training dataset
+│
 ├── llm/
 │   └── llm_engine.py     # Handles prompt formatting and communication with LLMs
 │
