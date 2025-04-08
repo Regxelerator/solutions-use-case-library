@@ -1,0 +1,52 @@
+{
+  "principles": [
+    {
+      "principle_id": "1",
+      "principle": "Clear identification as advertising: The financial promotion should be unmistakably identified as advertising, featuring the sponsoring firm’s name, logo, and regulatory status where applicable.",
+      "attributes": [
+        "Labels such as 'Ad' appear upfront so that users can immediately identify the promotional nature of the content.",
+        "The regulatory status (e.g. licensed) is transparently disclosed as part of the post."
+      ]
+    },
+    {
+      "principle_id": "2",
+      "principle": "Accuracy and truthfulness: A financial promotion must be factually correct, not misleading or deceptive.",
+      "attributes": [
+        "Any forecasts or assumptions must be clearly labeled as such, be reasonable and clearly stated and presented in a way that avoids misinterpretation.",
+        "All acronyms and key financial terms are spelled out and defined."
+      ]
+    },
+    {
+      "principle_id": "3",
+      "principle": "Balanced view of benefits and risks: When highlighting potential benefits or returns, financial promotions must include equally prominent information on the associated risks to provide a fair overall impression.",
+      "attributes": [
+        "Messages allocate similar space or emphasis to both positive outcomes and possible downsides.",
+        "Risk explanations use plain language so consumers can readily understand the implications."
+      ]
+    },
+    {
+      "principle_id": "4",
+      "principle": "Prominent risk warnings: Where risk warnings are included, they are clearly visible in the main content and not overshadowed by other elements.",
+      "attributes": [
+        "Risk warnings appear in full within the main body of the promotion without truncation or overshadowing by other elements.",
+        "Clear visual cues, such as bold or contrasting text, highlight risk statements to capture immediate attention."
+      ]
+    },
+    {
+      "principle_id": "5",
+      "principle": "Non-concealment of material information: Financial promotions must not omit or hide critical details such as fees, limitations, and conditions.",
+      "attributes": [
+        "Promotions clearly convey all essential facts, including fees, limitations, and conditions. Where full detail cannot be included within the promotion itself, it must be transparently stated that these apply and a clear path to the relevant information must be provided.",
+        "Design elements such as font size, text positioning, or visuals do not obscure, minimize, or otherwise hide important information from consumers."
+      ]
+    },
+    {
+      "principle_id": "6",
+      "principle": "Easy accessibility of supoorting information: Detailed product information should be readily accessible through direct links or clear pathways from the primary promotional message",
+      "attributes": [
+        "The promotion includes links or other references that direct users to more specific product details.",
+        "The promotion indicates that the information displayed is not exhaustive and encourages users to consult additional information."
+      ]
+    }
+  ]
+}
