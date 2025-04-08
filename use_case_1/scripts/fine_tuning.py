@@ -53,7 +53,7 @@ def fine_tuning_classification(
     jsonl_filename: str = "complaints_categorization_finetuning.jsonl"
     jsonl_file_path: str = os.path.join(output_dir, jsonl_filename)
 
-    categorized_output_file: str = "complaint_data_categorized.xlsx"
+    categorized_output_file: str = "output_classification_technique_2_finetuning.xlsx"
     categorized_output_file_path: str = os.path.join(
         output_dir, categorized_output_file
     )

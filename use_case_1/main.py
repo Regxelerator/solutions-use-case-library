@@ -36,7 +36,7 @@ def main():
     if args.technique == "few-shot":
         print("\n Running Few-Shot Classification...\n")
         try:
-            input_file = "complaint_data_synthetic.xlsx"
+            input_file = "complaints_data_synthetic.xlsx"
             file_path = check_file_exists(input_dir, input_file)
             few_shot_classification(file_path, output_dir)
         except FileNotFoundError as e:
@@ -46,10 +46,10 @@ def main():
     elif args.technique == "fine-tuning":
         print("\n Running Fine-Tuning Classification...\n")
         try:
-            input_file = "complaint_data_training.xlsx"
+            input_file = "complaints_data_training.xlsx"
             complaints_data_path = check_file_exists(input_dir, input_file)
 
-            uncategorized_file: str = "Complaints Data - Uncategorized.xlsx"
+            uncategorized_file: str = "complaints_data_synthetic.xlsx"
             uncategorized_file_path = check_file_exists(input_dir, uncategorized_file)
             fine_tuning_classification(
                 complaints_data_path, uncategorized_file_path, output_dir
@@ -61,10 +61,10 @@ def main():
     elif args.technique == "vector-embedding":
         print("\n Running Vector Embedding Classification...\n")
         try:
-            reference_data_path = "complaint_data_reference_examples.xlsx"
+            reference_data_path = "complaint_data_classification_reference_examples.xlsx"
             reference_data_path = check_file_exists(input_dir, reference_data_path)
 
-            uncategorized_data_path = "complaint_data_synthetic.xlsx"
+            uncategorized_data_path = "complaints_data_synthetic.xlsx"
             uncategorized_data_path = check_file_exists(
                 input_dir, uncategorized_data_path
             )

@@ -75,6 +75,6 @@ def categorize_complaints(
 
     test_df["category"] = categories_assigned
 
-    output_file = "complaint_data_categorized.xlsx"
-    output_file = os.path.join(output_path, "complaint_data_categorized.xlsx")
+    output_file = "output_classification_technique_3_vector_embeddings.xlsx"
+    output_file = os.path.join(output_path, "output_classification_technique_3_vector_embeddings.xlsx")
     test_df.to_excel(output_file, index=False)
