@@ -383,7 +383,39 @@ def get_prompt_to_prepare_comparative_analysis(
 def get_openai_response(
     prompt: str,
     model: str = "gpt-4o",
-    temperature: float = 0.1,
+) -> str:
+    """
+    Sends a prompt to OpenAI's API and retrieves the response.
+
+    This method is fully generic and includes error handling to ensure smooth operation
+    even in the case of API errors or unexpected responses.
+
+    Args:
+        prompt (str): The input prompt for the AI model.
+        model (str, optional): The OpenAI model to use (default: "gpt-4o").
+    Returns:
+        str: The AI-generated response, or an error message if the request fails.
+    """
+    try:
+        response = client.chat.completions.create(
+            model=model,
+            messages=[{"role": "user", "content": prompt}],
+        )
+        if response.choices:
+            return response.choices[0].message.content.strip()
+        else:
+            raise ValueError("Received empty response from OpenAI API.")
+
+    except Exception as e:
+        error_message = f"Error occurred while fetching OpenAI response: {str(e)}"
+        print(error_message)
+        return error_message
+
+
+
+def get_openai_response2(
+    prompt: str,
+    model: str = "gpt-4o",
     response_format: dict = None,
 ) -> str:
     """
@@ -405,7 +437,6 @@ def get_openai_response(
         response = client.chat.completions.create(
             model=model,
             messages=[{"role": "user", "content": prompt}],
-            temperature=temperature,
             response_format=response_format,
         )
         if response.choices:
