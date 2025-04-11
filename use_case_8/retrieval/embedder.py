@@ -11,13 +11,13 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 @function_tool
 async def upload_files_to_vector_store(
-    Metadata_File_path: str, output_dir: str
+    metadata_file_path: str, output_dir: str
 ) -> Dict[str, Any]:
     """
     Uploads files to a vector store based on the metadata provided in the metadata file.
 
     Args:
-    Metadata_File_path (str): Path to the metadata JSON file containing file details.
+    metadata_file_path (str): Path to the metadata JSON file containing file details.
     output_dir (str): Path to the directory containing processed files.
 
     Returns:
@@ -31,30 +31,27 @@ async def upload_files_to_vector_store(
         },
     )
     vector_store_id = vector_store.id
-
-    with open(Metadata_File_path, "r", encoding="utf-8") as meta_file:
+    with open(metadata_file_path, "r", encoding="utf-8") as meta_file:
         metadata_list = json.load(meta_file)
 
     results = []
+    processed_folder = output_dir
 
-    Processed_Folder = os.path.join(output_dir, "Processed")
     for metadata in metadata_list:
         processed_file_name = metadata["processed_filename"]
-        file_path = os.path.join(Processed_Folder, processed_file_name)
+        file_path = os.path.join(processed_folder, processed_file_name)
 
         if not os.path.exists(file_path):
             results.append(
                 {"file_name": processed_file_name, "status": "File not found"}
             )
             continue
-
         with open(file_path, "rb") as file:
             upload_response = client.vector_stores.files.upload_and_poll(
                 vector_store_id=vector_store_id, file=file
             )
 
         file_id = upload_response.id
-
         client.vector_stores.files.update(
             vector_store_id=vector_store_id,
             file_id=file_id,
@@ -65,7 +62,6 @@ async def upload_files_to_vector_store(
                 "year": metadata["year"],
             },
         )
-
         results.append(
             {"file_name": processed_file_name, "status": "Uploaded", "file_id": file_id}
         )
@@ -77,5 +73,4 @@ async def upload_files_to_vector_store(
             indent=4,
             ensure_ascii=False,
         )
-
     return {"vector_store_id": vector_store_id, "results": results}

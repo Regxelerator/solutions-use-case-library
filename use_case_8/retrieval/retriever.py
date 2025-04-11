@@ -91,7 +91,7 @@ async def search_file(output_dir: str) -> Dict[str, Any]:
 
     for file_name in file_names:
         search_results = client.vector_stores.search(
-            vector_store_id="vector_store_id",
+            vector_store_id=vector_store_id,
             query="AI supervision in financial services",
             max_num_results=20,
             filters={"type": "eq", "key": "file_name", "value": file_name},

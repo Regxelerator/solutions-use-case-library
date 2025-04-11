@@ -1,5 +1,5 @@
-from agents import Agent, ModelSettings, Runner, trace
-from retrieval.retriever import search_file
+from agents import Runner, trace
+from llm.llm_engine import file_search_agent
 
 
 async def performing_sematic__file_search(output_dir: str) -> None:
@@ -12,13 +12,6 @@ async def performing_sematic__file_search(output_dir: str) -> None:
     Returns:
      None
     """
-    file_search_agent = Agent(
-        model="gpt-4o-mini",
-        name="File Search Agent",
-        tools=[search_file],
-        model_settings=ModelSettings(tool_choice="required"),
-        tool_use_behavior="stop_on_first_tool",
-    )
 
     with trace("Step 3: File Search"):
         await Runner.run(
@@ -26,8 +19,10 @@ async def performing_sematic__file_search(output_dir: str) -> None:
             [
                 {
                     "role": "user",
-                    "content": "Call the search file tool",
-                    "arguments": {"output_dir": output_dir},
+                    "content": (
+                        f"Search the files in the directory '{output_dir}' using the file search tool. "
+                        "Return relevant matches or metadata."
+                    ),
                 }
             ],
         )

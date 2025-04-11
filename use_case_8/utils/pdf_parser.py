@@ -1,7 +1,26 @@
 from agents import function_tool
 import os
-import pymupdf4llm
 from typing import Dict
+import PyPDF2
+
+
+def convert_pdf_to_markdown(file_path: str) -> str:
+    """Extract text from a PDF file.
+
+    :param file_path: Path to the PDF file.
+    :return: Extracted text as a string or an error message.
+    """
+    text = ""
+    try:
+        with open(file_path, "rb") as file:
+            reader = PyPDF2.PdfReader(file)
+            for page in reader.pages:
+                page_text = page.extract_text()
+                if page_text:
+                    text += page_text + "\n"
+        return text.strip()
+    except Exception as e:
+        return f"Error extracting text from PDF: {str(e)}"
 
 
 @function_tool
@@ -18,17 +37,17 @@ async def content_extraction(pdf_file: str, input_dir: str) -> Dict[str, str]:
     """
 
     output_dir = os.path.join(os.getcwd(), "output")
-    Processed_Folder = os.path.join("output", output_dir)
-    os.makedirs(Processed_Folder, exist_ok=True)
+    processed_folder = os.path.join("output", output_dir)
+    os.makedirs(processed_folder, exist_ok=True)
 
     pdf_path = os.path.join(input_dir, pdf_file)
-    markdown_text = pymupdf4llm.to_markdown(pdf_path)
+    markdown_text = convert_pdf_to_markdown(pdf_path)
     if not os.path.exists(input_dir):
         raise FileNotFoundError(
             f"Input directory '{input_dir}' not found. Please ensure it exists and contains the required files."
         )
 
-    new_file_path = os.path.join(Processed_Folder, pdf_file.replace(".pdf", ".md"))
+    new_file_path = os.path.join(processed_folder, pdf_file.replace(".pdf", ".md"))
 
     with open(new_file_path, "w", encoding="utf-8") as md_file:
         md_file.write(markdown_text)

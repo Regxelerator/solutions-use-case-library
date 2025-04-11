@@ -20,8 +20,9 @@ async def agent_for_report_finalization(output_dir: str) -> None:
             [
                 {
                     "role": "user",
-                    "content": "Generate the final report in Word.",
-                    "arguments": {"output_dir": output_dir},
+                    "content": (
+                        f"Generate the final report in Word format and save it to the following directory: {output_dir}."
+                    ),
                 }
             ],
         )

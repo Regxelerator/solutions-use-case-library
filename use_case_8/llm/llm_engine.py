@@ -8,6 +8,7 @@ from typing import List, Literal
 from retrieval.embedder import upload_files_to_vector_store
 from utils.pdf_parser import content_extraction
 from utils.file_handler import create_report
+from retrieval.retriever import search_file
 
 load_dotenv()
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
@@ -307,3 +308,12 @@ Report_Agent = Agent(
     instructions="You are responsible for overseeing the creation of a final report in Word. You call the create_report tool. Once the tool has been executed, you end the process and indicate that the Word report was created.",
     tool_use_behavior="stop_on_first_tool",
 )
+
+
+file_search_agent = Agent(
+        model="gpt-4o-mini",
+        name="File Search Agent",
+        tools=[search_file],
+        model_settings=ModelSettings(tool_choice="required"),
+        tool_use_behavior="stop_on_first_tool",
+    )

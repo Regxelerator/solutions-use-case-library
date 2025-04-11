@@ -37,8 +37,10 @@ async def agent_for_file_processing(input_dir: str, output_dir: str) -> str:
                 [
                     {
                         "role": "user",
-                        "content": f"Process the document: {pdf_file}",
-                        "arguments": {"pdf_file": pdf_file, "input_dir": input_dir},
+                        "content": (
+                            f"Process the document named '{pdf_file}' located in the directory '{input_dir}'. "
+                            "Please extract and return metadata as a structured object."
+                        ),
                     }
                 ],
             )

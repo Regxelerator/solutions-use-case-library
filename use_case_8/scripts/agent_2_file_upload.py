@@ -19,11 +19,10 @@ async def agent_for_file_uploading(meta_data_file_path: str, output_dir: str) ->
             [
                 {
                     "role": "user",
-                    "content": "Call the upload files tool",
-                    "arguments": {
-                        "Metadata_File_path": meta_data_file_path,
-                        "output_dir": output_dir,
-                    },
+                    "content": (
+                        f"Upload the processed files using the metadata located at: {meta_data_file_path} "
+                        f"and upload to the directory: {output_dir}."
+                    ),
                 }
             ],
         )
