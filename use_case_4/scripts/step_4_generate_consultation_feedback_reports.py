@@ -215,6 +215,7 @@ def main_word(
 
         chapter_heading = doc.add_heading(chapter_title, level=1)
         chapter_heading.style = doc.styles["Heading 1"]
+        chapter_heading.add_run(chapter_title)
         set_run_font(
             chapter_heading.runs[0],
             font_name="Calibri Light",
