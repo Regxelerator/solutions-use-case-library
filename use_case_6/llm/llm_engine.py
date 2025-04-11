@@ -8,7 +8,7 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 
 def get_response_from_openai(
-    prompt: str, model: str = "o3-mini", temperature: float = 0.7
+    prompt: str, model: str = "o3-mini"
 ) -> Dict[str, Any]:
     """
     Generates a response using OpenAI's chat model.
@@ -16,15 +16,13 @@ def get_response_from_openai(
     Parameters:
     prompt (str): The input prompt for the AI model.
     model (str): The model to use (default: "o3-mini").
-    temperature (float): The randomness of responses (default: 0.7).
 
     Returns:
     Dict[str, Any]: The API response containing the model's output.
     """
     response = client.chat.completions.create(
         model=model,
-        messages=[{"role": "user", "content": prompt}],
-        temperature=temperature,
+        messages=[{"role": "user", "content": prompt}]
     )
 
     return response
@@ -72,9 +70,13 @@ def get_prompt_for_outsourcing_agreement(markdown_text: str) -> str:
     # Instructions
     1. Read the text in full.
     2. Develop an understanding of the logical structure of the agreement.
-    3. Based on this understanding, identify the main logical units of the agreement at the most granular level. 
-    4. On the basis of the identified units, identify the starting points of the units and - if applicable - the associated Markdown markers. 
+    3. Based on this understanding, identify the main logical units of the agreement. 
+    4. On the basis of the identified units, identify the starting points of the units and the associated Markdown markers. 
     5. Create an ordered JSON array listing the starting points of the logical units including any Markdown markers, whereby each item is a string. 
+    
+    # Additional rules
+    * Strictly focus on the body of the agreement - ignore any table of contents 
+    * Strictly return the name of the unit and the associated Markdown markers as shown in the body of the text; never remove or simplify any Markdown markers
 
     # Example outputs - please tailor as required
 
@@ -95,11 +97,6 @@ def get_prompt_for_outsourcing_agreement(markdown_text: str) -> str:
     "**Title logical unit 4**",
     "**Title logical unit 5**"
     ]
-
-    # Additional advice:
-
-    1. You must tailore the Markdown markers based on the content of the document. 
-    2. What matters are how the units are represented in the main body of the text (not the content table)
 
     # Input
 

@@ -1,22 +1,14 @@
-import fitz  # PyMuPDF
-
+import pymupdf4llm
 
 def convert_pdf_to_markdown(pdf_path: str) -> str:
     """
-    Extracts the content of a PDF file and converts it to a simple Markdown format.
-
+    Extracts text from a PDF and converts it to Markdown format.
+    
     Parameters:
     pdf_path (str): The file path of the PDF document.
-
+    
     Returns:
     str: The extracted text in Markdown format.
     """
-    doc = fitz.open(pdf_path)
-    markdown_text = ""
-
-    # Extract text from all pages
-    for page_num in range(doc.page_count):
-        page = doc.load_page(page_num)
-        text = page.get_text("text")
-        markdown_text += text + "\n\n---\n\n"
+    markdown_text = pymupdf4llm.to_markdown(pdf_path)
     return markdown_text
