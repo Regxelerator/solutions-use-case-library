@@ -31,7 +31,7 @@ def extracting_text_and_visuals(promotion_dir: str, output_dir: str) -> str | No
         str: Path to the results file('promotion_descriptions.json).
     """
 
-    results_file = os.path.join(output_dir, "promotion_descriptions.json")
+    results_file = os.path.join(output_dir, "results_output.json")
     if not os.path.exists(results_file):
         with open(results_file, "w") as f:
             json.dump([], f)

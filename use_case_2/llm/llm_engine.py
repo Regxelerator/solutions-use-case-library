@@ -55,7 +55,7 @@ def call_openai_for_ad_content(base64_image, prompt):
             max_tokens=2000,
         )
 
-        if "choices" not in response or len(response["choices"]) == 0:
+        if (response and not response.choices) or len(response.choices) == 0:
             raise ValueError("Invalid response from the model: No choices found")
 
         content = response.choices[0].message.content
