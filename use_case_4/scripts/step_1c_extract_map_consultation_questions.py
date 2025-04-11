@@ -75,7 +75,8 @@ def extracting_and_mapping_questions(segmented_json_file: str, output_dir: str) 
 
     output_json_questions = save_json(
         {"consultation_questions": all_questions},
-        os.path.join(output_dir, "consultation_questions.json"),
+        output_dir,
+        'consultation_questions.json'
     )
     assign_chapter_ids(segmented_json_file, output_json_questions)
     return output_json_questions

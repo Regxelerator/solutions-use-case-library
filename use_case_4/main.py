@@ -21,10 +21,9 @@ def main():
     7. step_4_generate_consultation_feedback_reports.py
 
     """
-    consultation_pdf = "Consultation_Paper.pdf"
+    consultation_pdf = "Consultation_Paper/Consultation_Paper.pdf"
     current_dir = os.getcwd()
     input_dir = os.path.join(current_dir, "input")
-    input_dir = os.path.join(input_dir, "Consultation_Paper")
     output_dir = os.path.join(current_dir, "output")
     consultation_pdf_path = os.path.join(input_dir, consultation_pdf)
 
