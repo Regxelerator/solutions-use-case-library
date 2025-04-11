@@ -3,3 +3,5 @@ python-dotenv
 python-docx
 Pymupdf==1.25.5
 pymupdf4llm==0.0.20
+tiktoken
+pypdf2==3.0.1

@@ -24,7 +24,7 @@ def parse_outsourcing_doc(json_file: str, output_dir: str) -> None:
             if len(content_str) >= 50:
                 heading = lu.get("logical_unit_heading", "")
                 lu["logical_unit_content_full"] = (
-                    f"{heading.strip()} {content_str}".strip()
+                    f"{heading} {content_str}".strip()
                 )
                 embedding_vector = generate_embedding(lu["logical_unit_content_full"])
                 if not embedding_vector:

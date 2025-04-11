@@ -39,18 +39,7 @@ def performing_compliance_assessment(req_agree_match_file_path: str, output_dir:
             lu_content = match_item.get("logical_unit_content_full", "")
             matches_text += f"LOGICAL UNIT ID: {lu_id} CONTENT:{lu_content}-----"
 
-        # prompt1=get_prompt_for_contract_summary(requirement_description,matches_text)
-
-        # response_step1=get_response_from_openai(prompt1,"o3-mini")
-        # contract_contents = response_step1.choices[0].message.content.strip()
-
-        # prompt2=get_prompt_for_compliance_assessment(requirement_description,contract_contents)
-        # response_step2=get_response_from_openai(prompt2,"o1")
-
-        # compliance_assessment = response_step2.choices[0].message.content.strip()
-
-        # prompt3=get_prompt_for_compliance_score(requirement_description,compliance_assessment)
-        # response_step3=get_compliance_score_from_openai(prompt3,model="gpt-4o")
+    
         try:
             prompt1 = get_prompt_for_contract_summary(
                 requirement_description, matches_text
@@ -84,7 +73,6 @@ def performing_compliance_assessment(req_agree_match_file_path: str, output_dir:
             print(f"Error during compliance score generation: {e}")
             return None
 
-        # raw_api_response = response_step3.choices[0].message.content.strip()
         compliance_score_numeric = 0.0
 
         choice_logprobs = response_step3.choices[0].logprobs
