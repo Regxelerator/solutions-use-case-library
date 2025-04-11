@@ -24,6 +24,7 @@ def main():
     consultation_pdf = "Consultation_Paper.pdf"
     current_dir = os.getcwd()
     input_dir = os.path.join(current_dir, "input")
+    input_dir = os.path.join(input_dir, "Consultation_Paper")
     output_dir = os.path.join(current_dir, "output")
     consultation_pdf_path = os.path.join(input_dir, consultation_pdf)
 

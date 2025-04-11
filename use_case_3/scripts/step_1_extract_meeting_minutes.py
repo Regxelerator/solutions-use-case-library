@@ -27,7 +27,7 @@ def extracting_meeting_minutes(folder_path: str, output_file_path: str) -> str:
     folder_path = os.path.join(folder_path, "Board_Meeting_Minutes")
     if not os.path.exists(folder_path):
         print(f"{folder_path} does not exist")
-        return
+        return ''
     consolidated_data = {"meetings": []}
 
     for filename in os.listdir(folder_path):

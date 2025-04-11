@@ -124,7 +124,7 @@ def segmenting_consultation_response(input_dir: str, output_dir: str) -> None | 
         processed_dir(str):path to directory where processed JSON responses will be stored.
     """
 
-    pdf_dir = os.path.join(input_dir, "Consultation Paper", "Responses")
+    pdf_dir = os.path.join(input_dir, "Consultation_Responses")
     if not os.path.isdir(pdf_dir):
         raise FileNotFoundError(f"Directory not found: {pdf_dir}")
     processed_dir = os.path.join(

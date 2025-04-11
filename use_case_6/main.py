@@ -19,7 +19,7 @@ def main():
 
     """
     input_dir = os.path.join(os.getcwd(), "input")
-    pdf_file = os.path.join(input_dir, "Outsourcing_Agreement.pdf")
+    pdf_file = os.path.join(input_dir, "Example_Outsourcing_Agreement.pdf")
 
     if not os.path.exists(pdf_file):
         print(f"Error: The file '{pdf_file}' does not exist. Exiting.")
