@@ -1,4 +1,5 @@
 import os
+import json
 from utils.pdf_parser import (
     extract_text_from_docx,
     extract_text_from_pdf,
@@ -76,4 +77,6 @@ def extracting_meeting_minutes(folder_path: str, output_file_path: str) -> str:
             consolidated_data["meetings"].append(meeting_data)
 
     output_file_path = os.path.join(output_file_path, "consolidated_data.json")
+    with open(output_file_path, "w", encoding="utf-8") as f:
+        json.dump(consolidated_data, f, ensure_ascii=False, indent=4)
     return output_file_path
