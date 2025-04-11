@@ -1,4 +1,7 @@
+import sys
 import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 import pandas as pd
 from datetime import datetime
 from collections import defaultdict
@@ -264,171 +267,6 @@ def main_word(
     doc.save(output_filename)
 
 
-
-
-
-def merge_consecutive_cells(
-    worksheet, df: pd.DataFrame, column_name: str, col_index: int, cell_format
-) -> None:
-    """
-    Merges consecutive cells in a given column if they contain the same value.
-
-    Args:
-        worksheet: An `xlsxwriter` worksheet object where the cells will be merged.
-        df (pd.DataFrame): The DataFrame containing the data.
-        column_name (str): The column name whose values need to be merged.
-        col_index (int): The index of the column in the worksheet.
-        cell_format: The cell format to apply to the merged cells.
-    """
-    start_xl_row = 1
-    last_data_row = start_xl_row + len(df) - 1
-    
-    
-    def merge_run_if_needed(_worksheet, rstart: int, rend: int, value: str) -> None:
-        """
-        Merges a range of consecutive cells in a column if needed, otherwise writes a single value.
-
-        Args:
-            _worksheet (sheet): The worksheet to merge.
-            rstart (int): The starting row index of the merge.
-            rend (int): The ending row index of the merge.
-            value (str): The value to write in the merged cells.
-        """
-        if rend > rstart:
-            _worksheet.merge_range(rstart, col_index, rend, col_index, value, cell_format)
-        else:
-            _worksheet.write(rstart, col_index, value, cell_format)
-
-    if len(df) == 0:
-        return
-
-    run_value = df.iloc[0][column_name]
-    run_start = start_xl_row
-
-    for i in range(1, len(df)):
-        current_value = df.iloc[i][column_name]
-        current_xl_row = start_xl_row + i
-
-        if current_value != run_value:
-            merge_run_if_needed(worksheet, run_start, current_xl_row - 1, run_value)
-            run_value = current_value
-            run_start = current_xl_row
-
-    merge_run_if_needed(run_start, last_data_row, run_value)
-
-
-def main_excel(
-    consult_quest_summary_json: str,
-    consultation_quest_json: str,
-    segmented_json_file: str,
-    output_dir: str,
-) -> None:
-    """
-    Generates an Excel file summarizing consultation responses.
-
-    Args:
-        consult_quest_summary_json (str): Path to the consultation question summaries JSON file.
-        consultation_quest_json (str): Path to the consultation questions JSON file.
-        segmented_json_file (str): Path to the segmented consultation chapters JSON file.
-        output_dir (str): Directory path where the Excel file will be saved.
-
-    Raises:
-        ValueError: If 'consultation_questions' key is missing in the consultation questions JSON file.
-    """
-    summaries = load_json(consult_quest_summary_json)
-    cdata = load_json(consultation_quest_json)
-
-    if "consultation_questions" in cdata:
-        consultation_questions = cdata["consultation_questions"]
-    else:
-        raise ValueError(
-            "consultation_questions.json does not contain 'consultation_questions' key!"
-        )
-
-    chapters_data = load_json(segmented_json_file)
-
-    question_to_chapter_map = {}
-    for cq in consultation_questions:
-        qid = cq["id"]
-        ch_id = cq["chapter_id"]
-        question_to_chapter_map[qid] = ch_id
-
-    chapter_map = {}
-    for ch in chapters_data:
-        cid = ch["chapter_id"]
-        cid_str = str(cid)
-        ctitle = ch["chapter_title"]
-        chapter_map[cid_str] = ctitle
-
-    data = {
-        "Chapter Title": [],
-        "Consultation Question": [],
-        "Respondent Name": [],
-        "Respondent Feedback": [],
-        "Level of Agreement": [],
-    }
-
-    for entry in summaries:
-        question_id = entry["question_id"]
-        summary_json = entry["summary"]
-        consultation_question = summary_json["consultation_question"]
-
-        ch_id_val = question_to_chapter_map.get(question_id, None)
-        if ch_id_val is None:
-            chapter_title = "Unknown Chapter"
-        else:
-            chapter_title = chapter_map.get(str(ch_id_val), "Unknown Chapter")
-
-        for resp in summary_json["responses"]:
-            data["Chapter Title"].append(chapter_title)
-            data["Consultation Question"].append(consultation_question)
-            data["Respondent Name"].append(resp["respondent_name"])
-            data["Respondent Feedback"].append(resp["response_summary"])
-            data["Level of Agreement"].append(resp.get("respondent_agreement", ""))
-
-    df = pd.DataFrame(data)
-
-    excel_file = os.path.join(output_dir, "Consultation_Responses_Details.xlsx")
-    with pd.ExcelWriter(excel_file, engine="xlsxwriter") as writer:
-        df.to_excel(writer, sheet_name="Responses", index=False)
-
-        workbook = writer.book
-        worksheet = writer.sheets["Responses"]
-
-        worksheet.freeze_panes(1, 0)
-        worksheet.autofilter(0, 0, df.shape[0], df.shape[1] - 1)
-
-        data_cell_format = workbook.add_format(
-            {"text_wrap": True, "valign": "top", "align": "left"}
-        )
-
-        worksheet.set_column(0, 0, 40, data_cell_format)
-        worksheet.set_column(1, 1, 40, data_cell_format)
-        worksheet.set_column(2, 2, 30, data_cell_format)
-        worksheet.set_column(3, 3, 120, data_cell_format)
-        worksheet.set_column(4, 4, 20, data_cell_format)
-
-        header_format = workbook.add_format(
-            {"bold": True, "align": "left", "valign": "vcenter"}
-        )
-        for col_num, heading in enumerate(df.columns):
-            worksheet.write(0, col_num, heading, header_format)
-
-        merged_cell_format = workbook.add_format(
-            {"align": "left", "valign": "top", "text_wrap": True}
-        )
-
-        chapter_col_idx = df.columns.get_loc("Chapter Title")
-        merge_consecutive_cells(
-            worksheet, df, "Chapter Title", chapter_col_idx, merged_cell_format
-        )
-
-        question_col_idx = df.columns.get_loc("Consultation Question")
-        merge_consecutive_cells(
-            worksheet, df, "Consultation Question", question_col_idx, merged_cell_format
-        )
-
-
 def consolidating_the_results(
     consult_quest_summary_json: str,
     consult_paper_info_json: str,
@@ -452,11 +290,5 @@ def consolidating_the_results(
         consult_quest_summary_json,
         consult_paper_info_json,
         executive_summary_json,
-        output_dir,
-    )
-    main_excel(
-        consult_quest_summary_json,
-        consultation_quest_json,
-        segmented_json_file,
         output_dir,
     )
