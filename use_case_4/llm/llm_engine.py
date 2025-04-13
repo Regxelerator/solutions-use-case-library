@@ -324,6 +324,79 @@ def get_prompt_for_relevance_check(
     """.strip()
 
 
+def get_prompt_for_summarizing_individual_responses(
+    question_data: dict,
+    background_info: dict,
+    chapter_content: str,
+) -> str:
+    """
+    Generates a structured prompt for summarizing individual consultation question responses by respondent.
+
+    Args:
+        question_data (dict): The consultation question details and responses.
+        background_info (dict): Background information about the consultation.
+        chapter_content (str): The content of the associated consultation chapter.
+        previous_summaries (str, optional): Summaries of previous questions for context.
+
+    Returns:
+        str: A formatted prompt for the AI model.
+    """
+    
+    question_id   = str(question_data["id"])
+    question_text = question_data["question"]
+    chapter_id    = str(question_data.get("chapter_id", ""))
+    responses     = question_data.get("responses", [])
+    
+    return f"""
+
+    # Role & task
+    You are a financial regulatory policy analyst. You are tasked with preparing a summary of responses to a recently issued consultation paper
+    for further internal review and discussion, and identifying respondents' sentiment in relation to the specific question.
+    
+    To that end, you are provided with three inputs:
+    1. Consultation question and associated responses by respondent.
+    2. Chapter content of the consultation paper chapter associated with the question.
+    3. Background information about the consultation.
+
+    # Instructions
+
+    1. Read the consultation question and associated respondent responses.
+    2. Analyze the associated responses.
+    3. Write an expert-level, succinct summary for each response highlighting key points, including specific recommendations.
+    4. Identify the respondent's level of agreement (akin to a sentiment indicator), classifying it as either high, medium, or low.
+    5. Compile the consultation question, summarized responses, and associated sentiment into a valid JSON structure.
+
+    # Output Format
+
+    Provide the output in valid JSON format structured as follows:
+
+    json
+    {{
+        "consultation_question": "[Your consultation question here]",
+        "responses": [
+            {{
+                "respondent_name": "[Name of respondent]",
+                "response_summary": "[Summary of the response]",
+                "respondent_agreement": "[Level of agreement]"
+            }}
+        ]
+    }}
+
+    # Input
+    question_id: {question_id}
+    consultation_question: {question_text}
+
+    associated_responses:
+    {json.dumps(responses, ensure_ascii=False, indent=2)}
+
+    background_information:
+    {json.dumps(background_info, ensure_ascii=False)}
+
+    chapter_id: {chapter_id}
+    chapter_content: {chapter_content}
+    """
+
+
 def get_prompt_for_summarizing_responses(
     question_data: dict,
     background_info: dict,

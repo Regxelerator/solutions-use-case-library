@@ -74,7 +74,7 @@ def create_executive_summary(background_info: dict, question_summaries: list) ->
     return response if isinstance(response, str) else json.dumps(response, indent=2)
 
 
-def analyzing_consultation_responses(
+def analyzing_consolidated_responses(
     consult_paper_info_json: str,
     mapped_responses_json: str,
     consultation_quest_json: str,

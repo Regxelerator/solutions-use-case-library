@@ -321,6 +321,9 @@ def merge_consecutive_cells(
     if len(df) == 0:
         return
 
+    # ------------------------------------------------------------
+    # helper
+    # ------------------------------------------------------------
     def merge_run_if_needed(
         _worksheet, rstart: int, rend: int, value: str
     ) -> None:
@@ -354,6 +357,7 @@ def merge_consecutive_cells(
             run_value = current_value
             run_start = current_xl_row
 
+    # FIX → pass `worksheet` as first argument
     merge_run_if_needed(worksheet, run_start, last_data_row, run_value)
 
 
@@ -387,8 +391,12 @@ def main_excel(
 
     chapters_data = load_json(segmented_json_file)
 
+    # ------------------------------------------------------------
+    # build helper maps
+    # ------------------------------------------------------------
     question_to_chapter_map = {cq["id"]: cq["chapter_id"] for cq in consultation_questions}
     chapter_map = {str(ch["chapter_id"]): ch["chapter_title"] for ch in chapters_data}
+    # ------------------------------------------------------------
 
     data = {
         "Chapter Title": [],
@@ -398,7 +406,11 @@ def main_excel(
         "Level of Agreement": []
     }
 
+    # ------------------------------------------------------------
+    # populate dataframe
+    # ------------------------------------------------------------
     for entry in summaries:
+        # Use the keys expected by the original schema
         question_id   = entry["question_id"]
         summary_json  = entry["summary"]
         consultation_question = summary_json["consultation_question"]
@@ -427,9 +439,11 @@ def main_excel(
         workbook  = writer.book
         worksheet = writer.sheets["Responses"]
 
+        # view helpers
         worksheet.freeze_panes(1, 0)
         worksheet.autofilter(0, 0, df.shape[0], df.shape[1] - 1)
 
+        # formats
         data_cell_format = workbook.add_format(
             {"text_wrap": True, "valign": "top", "align": "left"}
         )
@@ -440,15 +454,18 @@ def main_excel(
             {"align": "left", "valign": "top", "text_wrap": True}
         )
 
+        # column widths
         worksheet.set_column(0, 0, 40,  data_cell_format)
         worksheet.set_column(1, 1, 40,  data_cell_format)
         worksheet.set_column(2, 2, 30,  data_cell_format)
         worksheet.set_column(3, 3, 120, data_cell_format)
         worksheet.set_column(4, 4, 20,  data_cell_format)
 
+        # write headers with formatting
         for col_num, heading in enumerate(df.columns):
             worksheet.write(0, col_num, heading, header_format)
 
+        # merge identical values down the two key columns
         chapter_col_idx  = df.columns.get_loc("Chapter Title")
         merge_consecutive_cells(
             worksheet, df, "Chapter Title", chapter_col_idx, merged_cell_format
@@ -458,3 +475,30 @@ def main_excel(
         merge_consecutive_cells(
             worksheet, df, "Consultation Question", question_col_idx, merged_cell_format
         )
+
+
+def main():
+    consult_quest_summary_json = "output/consultation_question_summaries.json"
+    consult_quest_summary_individual_json = "output/summaries.json"
+    consult_paper_info_json = "output/consultation_paper_information.json"
+    executive_summary_json = "output/executive_summary.json"
+    consultation_quest_json = "output/consultation_questions.json"
+    segmented_json_file = "output/consultation_paper_segmented.json"
+    
+    output_dir = "output"
+    
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+    
+    consolidating_the_results(
+        consult_quest_summary_json,
+        consult_quest_summary_individual_json,
+        consult_paper_info_json,
+        executive_summary_json,
+        consultation_quest_json,
+        segmented_json_file,
+        output_dir,
+    )
+
+if __name__ == "__main__":
+    main()
