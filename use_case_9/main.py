@@ -18,7 +18,7 @@ def main():
         3. Split MDA-Sections (for all years)
         4. Filter MDA-Sections (for all years)
     """
-    PDFTOHTML_PATH = r"C:\Users\JennyRadziwolek\Desktop\7. Technology\Software Applications\Release-24.07.0-0 (1)\poppler-24.07.0\Library\bin\pdftohtml.exe"
+    PDFTOHTML_PATH = r"REPLACE BY ACTUAL PATH"
 
     if not os.path.exists(PDFTOHTML_PATH):
         raise FileNotFoundError(f"The path {PDFTOHTML_PATH} does not exist.")
