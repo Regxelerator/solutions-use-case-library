@@ -28,6 +28,7 @@ The repository is organized as a modular library, with each use case implemented
 * Use case 6: Assessing compliance of outsourcing agreements
 * Use case 7: Augmenting fit and proper reviews
 * Use case 8: Synthesizing policy and research papers using agentic flows (beta)
+* Use case 9: Performing comparative risk analysis based on annual report MD&A information
 
 ## Setup & installation
 
