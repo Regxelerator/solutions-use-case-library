@@ -1,5 +1,3 @@
-# scripts/generate_risk_comparative_report.py
-
 import os
 import json
 from docx import Document

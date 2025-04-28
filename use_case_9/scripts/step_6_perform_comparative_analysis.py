@@ -1,5 +1,3 @@
-# scripts/step_6_comparative_analysis.py
-
 import os
 import json
 from time import sleep
