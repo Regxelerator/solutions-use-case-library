@@ -1,0 +1,19 @@
+entity:
+  names:
+    - "Entity Name"
+  key_persons:
+    CEO: "First and last name"
+    CRO: "First and last name"
+    CCO: "First and last name"
+  adverse_keywords:
+    - investigation
+    - enforcement
+    - lawsuit
+    - misconduct
+    - fraud
+    - breach
+    - disruption
+    - cyber
+    - complaint
+  exclude_sites:
+    - Entity website address
