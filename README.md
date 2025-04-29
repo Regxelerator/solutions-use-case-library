@@ -29,6 +29,7 @@ The repository is organized as a modular library, with each use case implemented
 * Use case 7: Augmenting fit and proper reviews
 * Use case 8: Synthesizing policy and research papers using agentic flows (beta)
 * Use case 9: Performing comparative risk analysis based on annual report MD&A information
+* Use case 10: Leveraging web search tools to support entity-specific OSINT searches
 
 ## Setup & installation
 
