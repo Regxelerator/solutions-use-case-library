@@ -82,7 +82,7 @@ cd use_case_9
 
 3. Enter your OpenAI API in `.env`
 ```sh
-OPEN_API_KEY='ENTER YOUR API'
+OPENAI_API_KEY='ENTER YOUR API'
 ```
 
 4. Install Poppler and insert the path to insert path to pdftohtml.exe in `main.py`

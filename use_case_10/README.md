@@ -2,7 +2,17 @@
 
 ## Overview
 
-Coming soon
+In this use case, we introduce an example of an agentic workflow that leverages web search tools to identify adverse news item about an entity and its key position holders - a common process frequently executed by authorities as part of open source intelligence (OSINT) searches during ongoing supervision and/or the licensing stage. 
+
+Our workflow involves four steps, each executed by a dedicated agent:
+* Step 1: Creating tailored search queries for a given entity. 
+* Step 2: Executing news search based on the custom queries and filtering news for adverse information.
+* Step 3: Validating adverse findings and enriching them with further information.
+* Step 4: Consolidating findings for further supervisory review. 
+
+For testing purposes, we make available a template that interested users can populate with entity-specific information and execute their own searches. 
+
+The tools demonstrated in our example workflow rely entirely on the Bing Search API, which provides a legal and officially authorized means of retrieving and processing web search data. Beyond these, we are in the process of exploring other options such as the use of computer use tools for use in an OSINT context and will share examples of their application as part of this or a dedicated new use case in the near future. 
 
 For additional information about the workflow and the individual steps, please visit Regxelerator's use case library: https://regxelerator.com/solutions/use-case-library
 <br></br>
@@ -42,7 +52,7 @@ This use case relies on the following frameworks/libraries:
 
 * **Python 3.10**: Download from [python.org](https://www.python.org/).
 * **OpenAI API**: Obtain an API key from [OpenAI](https://platform.openai.com/docs/overview).
-* **BING Search API**: Obtain an API key from [Azure](https://platform.openai.com/docs/overview).
+* **Bing Search API**: Obtain an API key from [Azure]([https://www.microsoft.com/en-us/bing/apis/bing-web-search-api]).
 
 <br></br>
 **Python Packages**

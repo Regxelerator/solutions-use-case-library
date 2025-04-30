@@ -82,7 +82,7 @@ cd use_case_6
 
 3. Enter your OpenAI API in `.env`
 ```sh
-OPEN_API_KEY='ENTER YOUR API';
+OPENAI_API_KEY='ENTER YOUR API'
 ```
 
 4. Use the example input files or alternatively place your own files ```(Excel)``` into the ```input``` directory.
