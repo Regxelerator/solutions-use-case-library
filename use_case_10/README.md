@@ -12,7 +12,7 @@ Our workflow involves four steps, each executed by a dedicated agent:
 
 For testing purposes, we make available a template that interested users can populate with entity-specific information and execute their own searches. 
 
-The tools demonstrated in our example workflow rely entirely on the Bing Search API, which provides a legal and officially authorized means of retrieving and processing web search data. Beyond these, we are in the process of exploring other options such as the use of computer use tools for use in an OSINT context and will share examples of their application as part of this or a dedicated new use case in the near future. 
+The tools demonstrated in our example workflow rely on the Bing Search API and OpenAI's novel web search tool (which in part also relies on the Bing information infrastructure), which provides a legal and officially authorized means of retrieving and processing web search data. Beyond these, we are actively exploring other options such as the use of computer use tools for use in an OSINT context and will share examples of their application as part of this or a dedicated new use case in the near future.
 
 For additional information about the workflow and the individual steps, please visit Regxelerator's use case library: https://regxelerator.com/solutions/use-case-library
 <br></br>

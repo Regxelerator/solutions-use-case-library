@@ -9,7 +9,7 @@ from llm.llm_engine import News_Search_Agent, WebSearchItem
 
 def _slug(text: str, max_len: int = 60) -> str:
     """Return a filesystem-safe slug no longer than *max_len*."""
-    safe = re.sub(r"[^A-Za-z0-9._-]+", "_", text)  # keep only safe chars
+    safe = re.sub(r"[^A-Za-z0-9._-]+", "_", text) 
     return safe[:max_len] or "query"
 
 
