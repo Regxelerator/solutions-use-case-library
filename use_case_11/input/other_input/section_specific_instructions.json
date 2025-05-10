@@ -1,0 +1,75 @@
+[
+    {
+        "section_name": "Financial markets",
+        "section_instructions": [
+          "Adopt the following core paragraph structure and content outline for the section (tailored to the information in the transcript as necessary):",
+          "1. **Headline recap**: Summarise the main cross-asset moves since the previous meeting and the single dominant catalyst cited in the transcript.",
+          "2. **Long-term yields**: Note changes in 10- and (if present) 30-year nominal/real government yields.",
+          "3. **Short-term expectations**: Describe 6- to 12-month forward-OIS moves, forecast gaps, and any curve shape changes.",
+          "4. **Risk assets**: Capture shifts in credit spreads, equity indices, and implied volatility mentioned in the transcript.",
+          "5. **FX**: Record moves in the sterling ERI, £/€, £/$, plus any option skew/probability references.",
+          "6. **Drivers**: Attribute all price moves to the policy actions, data releases, or events cited, separating international from domestic factors.",
+          "7. **Committee assessment**: State the Committee’s view on how UK financial conditions have changed since the last Minutes/*Inflation Report*, referencing credit supply or net finance only if mentioned."
+        ]
+    },      
+    {
+        "section_name": "The international economy",
+        "section_instructions": [
+          "Adopt the following core paragraph structure and content outline for the section (tailored to the information in the transcript as necessary):",
+          "1. **Global summary**: Summarise overall global activity momentum since the previous meeting, highlighting key divergences across major regions",
+          "2. **Regional group developments**:    ",
+          "   — *Advanced economies*: Briefly report growth surprises vs forecasts, survey-based indicators of output, and any notable policy moves.",
+          "   — *Emerging markets*: Summarise key growth drivers or drags, policy responses (monetary/fiscal), and any volatility in capital flows.",
+          "3. **Trade & commodity trends**: Note major moves in commodity prices (e.g. oil, metals) and shifts in global trade volumes or supply-chain indicators, and link these to demand prospects.",
+          "4. **Global financial conditions**: Capture broad financial-market signals (exchange rates, bond yields or spreads, equity-market volatility) that bear on cross-border capital allocation and funding costs.",
+          "5. **External risks & spillovers**: Identify the top tail risks or policy spillovers (e.g. geopolitical shocks, central-bank shifts, financial-stability events) and briefly outline the channels through which they could feed into the domestic economy."
+        ]
+    },
+    {
+        "section_name": "Money, credit, demand and output",
+        "section_instructions": [
+          "Adopt the following core paragraph structure and content outline for the section (tailored to the information in the transcript as necessary):",
+          "1. **Headline recap**",
+          "   * Report latest GDP growth (or revision) against the Committee’s prior projection and long-run average.",
+          "   * Note sectoral contributions (services, production/manufacturing, construction) and flag any notable one-offs or survey-vs-official divergences.",
+          "2. **Near-Term Signals & Surveys**",
+          "   * Summarise business/composite PMIs, Agents/CBI/BCC intelligence and staff nowcasts.",
+          "   * Capture key retail-sales trends and consumer-confidence moves as early indicators of spending momentum.",
+          "3. **Domestic Demand Breakdown**",
+          "   * **Consumption**: Record quarterly consumption growth, retail-sales trends and shifts in real-income or the saving ratio.",
+          "   * **Housing**: Capture housing investment, mortgage approvals, transactions, house-price inflation and any policy or credit-supply influences.",
+          "   * **Business Investment**: Outline quarterly capex growth, survey intentions, key sector drivers (e.g. energy) and effects of uncertainty or credit conditions.",
+          "4. **Financial Conditions & Credit**",
+          "   * Describe household and corporate lending growth, spreads/rates, consumer-credit momentum and any shifts in broad money aggregates.",
+          "5. **External Sector & Exchange Rate**: Note net-trade or current-account contributions, export/import developments and sterling-related effects on demand.",
+          "6. **Committee Assessment**: State whether recent developments alter the Committee’s demand outlook or affirm existing projections, highlighting any material differences of view."
+        ]
+    },
+    {
+        "section_name": "Supply, costs and prices",
+        "section_instructions": [
+        "Adopt the following core paragraph structure and content outline for the section (tailored to the information in the transcript as necessary):",
+        "1. **Headline inflation**: State the latest 12-month CPI rate, its change since the previous meeting, and the gap to the inflation target.",
+        "2. **Inflation decomposition**: Quantify contributions to CPI from energy, food, traded goods and core services; flag any base-effects or weight changes; note sterling- or commodity-driven moves; include recent import-price and PPI input/output trends.",
+        "3. **Near-term outlook & expectations**:", 
+        "   * **Staff/Committee forecast**: Summarise the 6–12 month CPI projection, highlighting oil-price, FX pass-through and regulated-tariff assumptions.",
+        "   * **Surveys & markets**: Capture moves in household, business and market-implied inflation expectations at short and long horizons, noting any outsized deviations from norms.",
+        "4. **Domestic cost pressures**",
+        "   * **Labour-market slack**: Report unemployment, participation, vacancies, hours worked and survey evidence on recruitment difficulties or spare capacity.",
+        "   * **Pay dynamics & unit costs**: Detail whole-economy and private-sector AWE growth (regular vs total), bonus effects, composition shifts, key policy changes (e.g. National Living Wage), productivity growth, unit labour/wage-cost measures, non-wage cost trends and one-offs.",
+        "5. **Committee assessment**\n   Conclude with the MPC’s view on how these elements combine to shape the medium-term inflation outlook and any skew to risks."
+        ]
+    },
+    {
+        "section_name": "The immediate policy decision",
+        "section_instructions": [
+          "Adopt the following core paragraph structure and content outline for the section (tailored to the information in the transcript as necessary):",
+          "1. **Policy objective**: Summarise the Committee’s remit to meet the inflation target and support growth and employment.",
+          "2. **Decision drivers**: Summarise the specific decision drivers such as evolution and outlook of inflation metrics, real-economy developments, labour market and costs, and other relevant risks",
+          "3. **International developments**: Cover global growth signals, commodity and asset‐price movements, sterling shifts, and any relevant foreign central‐bank actions.",
+          "4. **Policy deliberation**: Outline the instruments considered (e.g. Bank Rate move, asset purchases, funding schemes) and any transmission‐mechanism concerns.",
+          "5. **Decision and vote**: Detail the chosen action on Bank Rate and other tools, noting the Governor's proposal and the resulting vote split and any dissenting views"
+        ]
+    }
+]  
+  

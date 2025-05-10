@@ -1,0 +1,54 @@
+[
+  {
+    "Term": "Bank Rate",
+    "Definition / Description": "The interest rate the Bank of England pays on overnight reserves held by commercial banks; it is the primary lever for influencing economy‑wide borrowing and saving rates."
+  },
+  {
+    "Term": "Bank of England Asset Purchase Facility Fund Limited (BEAPFF)",
+    "Definition / Description": "A wholly‑owned Bank of England company that conducts asset purchases (UK government and selected corporate bonds) on behalf of the Monetary Policy Committee."
+  },
+  {
+    "Term": "Bond",
+    "Definition / Description": "A fixed‑income IOU issued by governments or companies that pays a stated annual **coupon** and returns principal at maturity; its price and **yield** move inversely."
+  },
+  {
+    "Term": "Central‑bank reserves",
+    "Definition / Description": "Digital money the Bank of England creates and credits to banks’ reserve accounts; used to settle payments and to finance bond purchases under quantitative easing."
+  },
+  {
+    "Term": "Consumer Prices Index (CPI)",
+    "Definition / Description": "The inflation measure targeted by the Bank of England; calculated by the Office for National Statistics from a representative basket of around 700 goods and services."
+  },
+  {
+    "Term": "Corporate bond",
+    "Definition / Description": "A bond issued by a private‑sector company; the Bank purchased £20 billion of these under its quantitative‑easing programme to lower corporate borrowing costs."
+  },
+  {
+    "Term": "Coupon",
+    "Definition / Description": "The fixed cash interest payment on a bond (e.g. £5 per £100 of face value each year)."
+  },
+  {
+    "Term": "Inflation",
+    "Definition / Description": "The annual percentage rise in the general level of prices for goods and services; the Bank aims to keep CPI inflation at 2 %."
+  },
+  {
+    "Term": "Interest rate",
+    "Definition / Description": "The percentage cost of borrowing or return on saving per year; influenced across the economy by changes in Bank Rate and long‑term yields."
+  },
+  {
+    "Term": "Quantitative easing (QE)",
+    "Definition / Description": "Large‑scale purchases of bonds financed with newly created central‑bank reserves, designed to raise bond prices, lower long‑term interest rates, and stimulate spending when Bank Rate is near its lower bound."
+  },
+  {
+    "Term": "Quantitative tightening (QT)",
+    "Definition / Description": "The reduction of the stock of bonds acquired under QE, achieved by allowing maturities to run off and/or actively selling holdings; restores capacity to deploy QE again if needed."
+  },
+  {
+    "Term": "Yield",
+    "Definition / Description": "The bond’s annual return expressed as its coupon divided by current market price; as price rises, yield falls (e.g. a £5 coupon on a £120 price equals a 4.2 % yield)."
+  },
+  {
+    "Term": "Yield curve",
+    "Definition / Description": "The relationship across maturities of government‑bond yields; QE aims to flatten the longer‑maturity portion to ease economy‑wide borrowing costs."
+  }
+]
