@@ -31,6 +31,7 @@ The repository is organized as a modular library, with each use case implemented
 * Use case 9: Performing comparative risk analysis based on annual report MD&A information
 * Use case 10: Leveraging web search tools to support entity-specific OSINT searches
 * Use case 11: Fine-tuning for standardized meeting minute creation
+* Use case 12: Realtime virtual meeting advisor
 
 ## Setup & installation
 
