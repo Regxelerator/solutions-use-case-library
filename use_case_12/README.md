@@ -4,14 +4,16 @@
 
 In this use case, we introduce a “Realtime Virtual Meeting Advisor” that assists financial supervisors by capturing and transcribing live virtual discussions/meetings with (licensed) entities and generating in realtime targeted follow-up questions to guide the conversation.
 
-The prototype comprises of three main modules: 
+At the center of our prototype are three core modules which are operated in parallel: 
 
-* Module 1 - Audio capture & transcription: Record microphone input via pyaudiowpatch, stream it to OpenAI’s real-time transcription WebSocket (gpt-4o-transcribe), and aggregate completed speech turns into a running transcript
+* Module 1 - Audio capture & transcription: Recording microphone input via pyaudiowpatch, streaming it to OpenAI’s real-time transcription WebSocket (gpt-4o-transcribe), and aggregating completed speech turns into a running transcript
 
-* Module 2 - Question generation: Feeding the transcript in defined intervals to the LLM to generated targeted deep dive questions and as part of that extracting relevant content from previously uploaded entity files to enrich the question generation process
+* Module 2 - Question generation: Feeding the transcript in defined intervals to the LLM to generate targeted deep dive questions and as part of that extracting relevant content from previously uploaded entity files through vector search to enrich the question generation process
 
 * Module 3 - Live UI rendering: Displaying both the conversation and the follow-up questions in a dedicated interface as the conversation unfolds
 
+
+For the purpose of our demonstration, we simulate a (simplified) conversation between a regulator and a licensed entity to discuss the entity's cyber risk management framework and controls using a generative AI created conversation script and upload an example IT security policy to the vector store. Interested users can however apply the tool to any other (live) audio and files.
 
 For additional information about the workflow and the individual steps, please visit Regxelerator's use case library: https://regxelerator.com/solutions/use-case-library
 <br></br>
