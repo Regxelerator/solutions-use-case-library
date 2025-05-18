@@ -1,0 +1,5 @@
+openai
+websockets>=11       
+customtkinter>=5.2  
+pyaudiowpatch        
+python-dotenv

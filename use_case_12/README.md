@@ -2,7 +2,115 @@
 
 ## Overview
 
-Release: Sunday, May 18
+In this use case, we introduce a “Realtime Virtual Meeting Advisor” that assists financial supervisors by capturing and transcribing live virtual discussions/meetings with (licensed) entities and generating in realtime targeted follow-up questions to guide the conversation.
+
+The prototype comprises of three main modules: 
+
+* Module 1 - Audio capture & transcription: Record microphone input via pyaudiowpatch, stream it to OpenAI’s real-time transcription WebSocket (gpt-4o-transcribe), and aggregate completed speech turns into a running transcript
+
+* Module 2 - Question generation: Feeding the transcript in defined intervals to the LLM to generated targeted deep dive questions and as part of that extracting relevant content from previously uploaded entity files to enrich the question generation process
+
+* Module 3 - Live UI rendering: Displaying both the conversation and the follow-up questions in a dedicated interface as the conversation unfolds
+
+
+For additional information about the workflow and the individual steps, please visit Regxelerator's use case library: https://regxelerator.com/solutions/use-case-library
+<br></br>
+
+
+## Structure of the use case directory
+
+```
+
+use_case_12/
+|___input/
+|   - Optional inputs (e.g. audio snippets for testing, input files for vector store)
+│
+├── output/
+│   - Transcripts, logs 
+│
+├── llm/
+│   └── llm_engine.py           # Handles communication with LLMs
+│       
+│
+├── ui/
+│   └── popup.py                # CustomTkinter pop-up window 
+│    
+│
+├── audio/
+│   └── recorder.py             # Handles audio recording, streams mic audio to the OpenAI websocket, writes JSON transcripts, and enqueues them  
+│      
+│
+├── workers/
+│   ├── transcript_updater.py   # Manages realtime transcription and update of UI with transcript
+│   │    
+│   └── commentator.py          # Handles interaction with llm_engine to identify follow-up questions in defined time intervals
+│        
+│
+├── utils/
+│   ├── logger.py               # Logs OpenAI API calls 
+│   │    
+│   └── constants.py            # Documents relevant constants including model names, intervals, file paths, env loading
+│    
+│
+├── main.py                     # Central orchestrator
+│   
+|
+└── README.md
+    - Brief overview of the use case
+    - Instructions for setup, installation and usage
+    - License and contact information
+```
+
+## Setup & installation
+
+### Requirements
+
+This use case relies on the following frameworks/libraries:
+<br></br>
+
+**Software & Frameworks**
+
+* **Python 3.10**: Download from [python.org](https://www.python.org/).
+* **OpenAI API**: Obtain an API key from [OpenAI](https://platform.openai.com/docs/overview).
+
+<br></br>
+**Python Packages**
+
+Install the necessary packages with:
+```sh
+pip install -r requirements.txt
+```
+
+### Installation
+
+1. Clone the repo
+```sh
+git clone https://github.com/Regxelerator/solutions-use-case-library.git
+```
+
+2. Change the directory to the specific use case.
+```sh
+cd use_case_12
+```
+
+3. Enter your OpenAI API and the OpenAI Vector Store ID (once created) in `.env`
+```sh
+OPENAI_API_KEY='ENTER YOUR API'
+VECTOR_STORE_IDS='ENTER YOUR VECTOR_STORE_ID'
+```
+
+4. After initiating the main.py, simply start a meeting or play a test audio file simulating a conversation for the recording and the other actions to start.
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## Usage
+
+Run the main orchestration scripts with the following commands:
+
+```sh
+python3 main.py 
+```
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## License
 
