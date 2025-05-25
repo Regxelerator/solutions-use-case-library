@@ -50,7 +50,6 @@ This use case relies on the following frameworks/libraries:
 
 * **Python 3.10**: Download from [python.org](https://www.python.org/).
 * **OpenAI API**: Obtain an API key from [OpenAI](https://platform.openai.com/docs/overview).
-* **Bing Search API**: Obtain an API key from [Azure]([https://www.microsoft.com/en-us/bing/apis/bing-web-search-api]).
 
 <br></br>
 **Python Packages**
