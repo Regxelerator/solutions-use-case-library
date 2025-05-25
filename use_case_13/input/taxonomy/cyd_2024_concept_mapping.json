@@ -1,0 +1,181 @@
+{
+  "229.106.a": {
+  "requirement": "Definitions (Cybersecurity incident, Cybersecurity threat, Information systems)",
+  "definitions": {
+    "Cybersecurity incident": "An unauthorized occurrence, or a series of related unauthorized occurrences, on or conducted through a registrant's information systems that jeopardizes the confidentiality, integrity, or availability of a registrant's information systems or any information residing therein.",
+    "Cybersecurity threat": "Any potential unauthorized occurrence on or conducted through a registrant's information systems that may result in adverse effects on the confidentiality, integrity, or availability of a registrant's information systems or any information residing therein.",
+    "Information systems": "Electronic information resources, owned or used by the registrant, including physical or virtual infrastructure controlled by such information resources, or components thereof, organized for the collection, processing, maintenance, use, sharing, dissemination, or disposition of the registrant's information to maintain or support the registrant's operations."
+  },
+  "concepts": []
+  },
+  "229.106.b": {
+    "requirement": "Risk management and strategy.",
+    "concepts": [
+      {
+        "qname": "cyd:CybersecurityRiskManagementStrategyAndGovernanceAbstract",
+        "label": "Cybersecurity Risk Management, Strategy, and Governance [Abstract]",
+        "type": "abstract"
+      },
+      {
+        "qname": "cyd:CybersecurityRiskManagementStrategyAndGovernanceTable",
+        "label": "Cybersecurity Risk Management, Strategy, and Governance [Table]",
+        "type": "table"
+      },
+      {
+        "qname": "cyd:CybersecurityRiskManagementStrategyAndGovernanceLineItems",
+        "label": "Cybersecurity Risk Management, Strategy, and Governance [Line Items]",
+        "type": "lineItems"
+      }
+    ]
+  },
+  "229.106.b.1": {
+    "requirement": "Describe the registrant's processes for assessing, identifying, and managing material risks from cybersecurity threats.",
+    "concepts": [
+      {
+        "qname": "cyd:CybersecurityRiskManagementProcessesForAssessingIdentifyingAndManagingThreatsTextBlock",
+        "label": "Cybersecurity Risk Management Processes for Assessing, Identifying, and Managing Threats [Text Block]",
+        "type": "textBlock"
+      }
+    ]
+  },
+  "229.106.b.1.i": {
+    "requirement": "Whether and how any such processes have been integrated into the registrant's overall risk management system.",
+    "concepts": [
+      {
+        "qname": "cyd:CybersecurityRiskManagementProcessesIntegratedFlag",
+        "label": "Cybersecurity Risk Management Processes Integrated [Flag]",
+        "type": "boolean"
+      },
+      {
+        "qname": "cyd:CybersecurityRiskManagementProcessesIntegratedTextBlock",
+        "label": "Cybersecurity Risk Management Processes Integrated [Text Block]",
+        "type": "textBlock"
+      }
+    ]
+  },
+  "229.106.b.1.ii": {
+    "requirement": "Whether the registrant engages assessors, consultants, auditors, or other third parties.",
+    "concepts": [
+      {
+        "qname": "cyd:CybersecurityRiskManagementThirdPartyEngagedFlag",
+        "label": "Cybersecurity Risk Management Third Party Engaged [Flag]",
+        "type": "boolean"
+      }
+    ]
+  },
+  "229.106.b.1.iii": {
+    "requirement": "Whether the registrant has processes to oversee and identify such risks from cybersecurity threats associated with its use of any third-party service provider.",
+    "concepts": [
+      {
+        "qname": "cyd:CybersecurityRiskThirdPartyOversightAndIdentificationProcessesFlag",
+        "label": "Cybersecurity Risk Third Party Oversight and Identification Processes [Flag]",
+        "type": "boolean"
+      }
+    ]
+  },
+  "229.106.b.2": {
+    "requirement": "Describe whether any risks from cybersecurity threats, including as a result of any previous cybersecurity incidents, have materially affected or are reasonably likely to materially affect the registrant, including its business strategy, results of operations, or financial condition and if so, how.",
+    "concepts": [
+      {
+        "qname": "cyd:CybersecurityRiskMateriallyAffectedOrReasonablyLikelyToMateriallyAffectRegistrantFlag",
+        "label": "Cybersecurity Risk Materially Affected or Reasonably Likely to Materially Affect Registrant [Flag]",
+        "type": "boolean"
+      },
+      {
+        "qname": "cyd:CybersecurityRiskMateriallyAffectedOrReasonablyLikelyToMateriallyAffectRegistrantTextBlock",
+        "label": "Cybersecurity Risk Materially Affected or Reasonably Likely to Materially Affect Registrant [Text Block]",
+        "type": "textBlock"
+      }
+    ]
+  },
+  "229.106.c": {
+    "requirement": "Governance.",
+    "concepts": [
+      {
+        "qname": "cyd:CybersecurityRiskManagementStrategyAndGovernanceAbstract",
+        "label": "Cybersecurity Risk Management, Strategy, and Governance [Abstract]",
+        "type": "abstract"
+      },
+      {
+        "qname": "cyd:CybersecurityRiskManagementStrategyAndGovernanceTable",
+        "label": "Cybersecurity Risk Management, Strategy, and Governance [Table]",
+        "type": "table"
+      },
+      {
+        "qname": "cyd:CybersecurityRiskManagementStrategyAndGovernanceLineItems",
+        "label": "Cybersecurity Risk Management, Strategy, and Governance [Line Items]",
+        "type": "lineItems"
+      }
+    ]
+  },
+  "229.106.c.1": {
+    "requirement": "Describe the board of directors' oversight of risks from cybersecurity threats. Identify any board committee or subcommittee responsible and describe processes by which the board/committee is informed.",
+    "concepts": [
+      {
+        "qname": "cyd:CybersecurityRiskBoardOfDirectorsOversightTextBlock",
+        "label": "Cybersecurity Risk Board of Directors Oversight [Text Block]",
+        "type": "textBlock"
+      },
+      {
+        "qname": "cyd:CybersecurityRiskBoardCommitteeOrSubcommitteeResponsibleForOversightTextBlock",
+        "label": "Cybersecurity Risk Board Committee or Subcommittee Responsible for Oversight [Text Block]",
+        "type": "textBlock"
+      },
+      {
+        "qname": "cyd:CybersecurityRiskProcessForInformingBoardCommitteeOrSubcommitteeResponsibleForOversightTextBlock",
+        "label": "Cybersecurity Risk Process for Informing Board Committee or Subcommittee Responsible for Oversight [Text Block]",
+        "type": "textBlock"
+      }
+    ]
+  },
+  "229.106.c.2": {
+    "requirement": "Describe management's role in assessing and managing material risks from cybersecurity threats.",
+    "concepts": [
+      {
+        "qname": "cyd:CybersecurityRiskRoleOfManagementTextBlock",
+        "label": "Cybersecurity Risk Role of Management [Text Block]",
+        "type": "textBlock"
+      }
+    ]
+  },
+  "229.106.c.2.i": {
+    "requirement": "Whether and which management positions or committees are responsible, and relevant expertise.",
+    "concepts": [
+      {
+        "qname": "cyd:CybersecurityRiskManagementPositionsOrCommitteesResponsibleFlag",
+        "label": "Cybersecurity Risk Management Positions or Committees Responsible [Flag]",
+        "type": "boolean"
+      },
+      {
+        "qname": "cyd:CybersecurityRiskManagementPositionsOrCommitteesResponsibleTextBlock",
+        "label": "Cybersecurity Risk Management Positions or Committees Responsible [Text Block]",
+        "type": "textBlock"
+      },
+      {
+        "qname": "cyd:CybersecurityRiskManagementExpertiseOfManagementResponsibleTextBlock",
+        "label": "Cybersecurity Risk Management Expertise of Management Responsible [Text Block]",
+        "type": "textBlock"
+      }
+    ]
+  },
+  "229.106.c.2.ii": {
+    "requirement": "The processes by which such persons or committees are informed about and monitor the prevention, detection, mitigation, and remediation of cybersecurity incidents.",
+    "concepts": [
+      {
+        "qname": "cyd:CybersecurityRiskProcessForInformingManagementOrCommitteesResponsibleTextBlock",
+        "label": "Cybersecurity Risk Process for Informing Management or Committees Responsible [Text Block]",
+        "type": "textBlock"
+      }
+    ]
+  },
+  "229.106.c.2.iii": {
+    "requirement": "Whether such persons or committees report information about such risks to the board of directors or a committee or subcommittee of the board of directors.",
+    "concepts": [
+      {
+        "qname": "cyd:CybersecurityRiskManagementPositionsOrCommitteesResponsibleReportToBoardFlag",
+        "label": "Cybersecurity Risk Management Positions or Committees Responsible Report to Board [Flag]",
+        "type": "boolean"
+      }
+    ]
+  }
+}
