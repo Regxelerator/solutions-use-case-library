@@ -1,4 +1,4 @@
-# Use Case 11: Classifying Financial Consumer Complaints
+# Use Case 11: Fine-tuning for standardized meeting minute creation
 
 ## Overview
 
