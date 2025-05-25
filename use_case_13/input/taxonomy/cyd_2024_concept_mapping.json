@@ -1,14 +1,7 @@
-{
-  "229.106.a": {
-  "requirement": "Definitions (Cybersecurity incident, Cybersecurity threat, Information systems)",
-  "definitions": {
-    "Cybersecurity incident": "An unauthorized occurrence, or a series of related unauthorized occurrences, on or conducted through a registrant's information systems that jeopardizes the confidentiality, integrity, or availability of a registrant's information systems or any information residing therein.",
-    "Cybersecurity threat": "Any potential unauthorized occurrence on or conducted through a registrant's information systems that may result in adverse effects on the confidentiality, integrity, or availability of a registrant's information systems or any information residing therein.",
-    "Information systems": "Electronic information resources, owned or used by the registrant, including physical or virtual infrastructure controlled by such information resources, or components thereof, organized for the collection, processing, maintenance, use, sharing, dissemination, or disposition of the registrant's information to maintain or support the registrant's operations."
-  },
-  "concepts": []
-  },
-  "229.106.b": {
+[
+  {
+    "rule_id": "229.106.b",
+    "hierarchy_level": 1,
     "requirement": "Risk management and strategy.",
     "concepts": [
       {
@@ -28,7 +21,9 @@
       }
     ]
   },
-  "229.106.b.1": {
+  {
+    "rule_id": "229.106.b.1",
+    "hierarchy_level": 2,
     "requirement": "Describe the registrant's processes for assessing, identifying, and managing material risks from cybersecurity threats.",
     "concepts": [
       {
@@ -38,7 +33,9 @@
       }
     ]
   },
-  "229.106.b.1.i": {
+  {
+    "rule_id": "229.106.b.1.i",
+    "hierarchy_level": 3,
     "requirement": "Whether and how any such processes have been integrated into the registrant's overall risk management system.",
     "concepts": [
       {
@@ -53,7 +50,9 @@
       }
     ]
   },
-  "229.106.b.1.ii": {
+  {
+    "rule_id": "229.106.b.1.ii",
+    "hierarchy_level": 3,
     "requirement": "Whether the registrant engages assessors, consultants, auditors, or other third parties.",
     "concepts": [
       {
@@ -63,7 +62,9 @@
       }
     ]
   },
-  "229.106.b.1.iii": {
+  {
+    "rule_id": "229.106.b.1.iii",
+    "hierarchy_level": 3,
     "requirement": "Whether the registrant has processes to oversee and identify such risks from cybersecurity threats associated with its use of any third-party service provider.",
     "concepts": [
       {
@@ -73,7 +74,9 @@
       }
     ]
   },
-  "229.106.b.2": {
+  {
+    "rule_id": "229.106.b.2",
+    "hierarchy_level": 2,
     "requirement": "Describe whether any risks from cybersecurity threats, including as a result of any previous cybersecurity incidents, have materially affected or are reasonably likely to materially affect the registrant, including its business strategy, results of operations, or financial condition and if so, how.",
     "concepts": [
       {
@@ -88,7 +91,9 @@
       }
     ]
   },
-  "229.106.c": {
+  {
+    "rule_id": "229.106.c",
+    "hierarchy_level": 1,
     "requirement": "Governance.",
     "concepts": [
       {
@@ -108,7 +113,9 @@
       }
     ]
   },
-  "229.106.c.1": {
+  {
+    "rule_id": "229.106.c.1",
+    "hierarchy_level": 2,
     "requirement": "Describe the board of directors' oversight of risks from cybersecurity threats. Identify any board committee or subcommittee responsible and describe processes by which the board/committee is informed.",
     "concepts": [
       {
@@ -128,7 +135,9 @@
       }
     ]
   },
-  "229.106.c.2": {
+  {
+    "rule_id": "229.106.c.2",
+    "hierarchy_level": 2,
     "requirement": "Describe management's role in assessing and managing material risks from cybersecurity threats.",
     "concepts": [
       {
@@ -138,7 +147,9 @@
       }
     ]
   },
-  "229.106.c.2.i": {
+  {
+    "rule_id": "229.106.c.2.i",
+    "hierarchy_level": 3,
     "requirement": "Whether and which management positions or committees are responsible, and relevant expertise.",
     "concepts": [
       {
@@ -158,7 +169,9 @@
       }
     ]
   },
-  "229.106.c.2.ii": {
+  {
+    "rule_id": "229.106.c.2.ii",
+    "hierarchy_level": 3,
     "requirement": "The processes by which such persons or committees are informed about and monitor the prevention, detection, mitigation, and remediation of cybersecurity incidents.",
     "concepts": [
       {
@@ -168,7 +181,9 @@
       }
     ]
   },
-  "229.106.c.2.iii": {
+  {
+    "rule_id": "229.106.c.2.iii",
+    "hierarchy_level": 3,
     "requirement": "Whether such persons or committees report information about such risks to the board of directors or a committee or subcommittee of the board of directors.",
     "concepts": [
       {
@@ -178,4 +193,4 @@
       }
     ]
   }
-}
+]
