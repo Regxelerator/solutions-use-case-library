@@ -26,7 +26,7 @@ use_case_13/
 │   └── llm_engine.py     # Handles prompt formatting and communication with LLMs.
 │
 ├── scripts/
-│   - Scripts for the four individual agentic modules
+│   - Scripts for the four individual steps
 │
 ├── main.py
 │   - The orchestration script that:
