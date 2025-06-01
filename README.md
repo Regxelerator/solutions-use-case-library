@@ -33,7 +33,7 @@ The repository is organized as a modular library, with each use case implemented
 * Use case 11: Fine-tuning for standardized meeting minute creation
 * Use case 12: Realtime virtual meeting advisor
 * Use case 13: Analyzing non-financial disclosures in XBRL filings
-* Use case 14: Leveraging LLMs for simulation exercises (part 1) - considerations for modelling test personas
+* Use case 14: Leveraging LLMs for simulation exercises (part 1) - considerations for modelling test personas (Release: June 2)
 
 ## Setup & installation
 
