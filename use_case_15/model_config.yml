@@ -1,0 +1,15 @@
+openai:
+  provider: openai
+  document_meta_data_model:
+    model: gpt-4o
+    temperature: 0.1
+    response_format: json_object
+
+  image_analysis_model:
+    model: gpt-4o
+    temperature: 0.1
+    response_format: json_object
+
+  image_text_extract_model:
+    model: gpt-4o
+    temperature: 0.1
