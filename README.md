@@ -32,7 +32,9 @@ The repository is organized as a modular library, with each use case implemented
 * Use case 10: Leveraging web search tools to support entity-specific OSINT searches
 * Use case 11: Fine-tuning for standardized meeting minute creation
 * Use case 12: Realtime virtual meeting advisor
-* Use case 13: Analyzing non-financial disclosures in XBRL Filings (WIP)
+* Use case 13: Analyzing non-financial disclosures in XBRL filings
+* Use case 14: Leveraging LLMs for simulation exercises (part 1) - considerations for modelling test personas
+* Use case 15: Automating documentation validation (work in progress)
 
 ## Setup & installation
 
