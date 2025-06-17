@@ -1,15 +1,21 @@
 openai:
   provider: openai
-  document_meta_data_model:
+  document_metadata:
     model: gpt-4o
     temperature: 0.1
     response_format: json_object
 
-  image_analysis_model:
+  image_analysis_regular:
     model: gpt-4o
     temperature: 0.1
     response_format: json_object
 
-  image_text_extract_model:
+  image_text_extraction:
     model: gpt-4o
     temperature: 0.1
+
+  validation:
+    model_type: reasoning_model
+    model: o3
+    response_format: json_schema
+    reasoning_effort: medium

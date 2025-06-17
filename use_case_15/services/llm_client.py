@@ -66,8 +66,8 @@ class LLMClientFactory:
 
     def chat_completion(self, model_case: str, messages: list, **kwargs):
         model_input_schema = None
-        deployment_name = None
-        model_api_version = None
+        deployment_name    = None
+        model_api_version  = None
 
         model_config = self.config.get(model_case)
         if not model_config:
@@ -79,9 +79,9 @@ class LLMClientFactory:
 
         if provider == "azure":
             model_input_schema = self.get_schema(model_case)
-            model_name = model_config.get("model")
-            model_api_version = model_config.get("api_version")
-            deployment_name = model_config.get("deployment_name") or model_name
+            model_name         = model_config.get("model")
+            model_api_version  = model_config.get("api_version")
+            deployment_name    = model_config.get("deployment_name") or model_name
             if deployment_name is None:
                 raise ValueError(
                     "Deployment_name or model_name are missing in model_config.yml"
@@ -90,31 +90,28 @@ class LLMClientFactory:
         client = self.get_client(
             provider, deployment_name, _api_version=model_api_version
         )
-        known_keys = {"provider", "model"}
-        params = {"messages": messages}
+
+        known_keys  = {"provider", "model"}
+        params      = {"messages": messages}
         if "model" in model_config:
             params["model"] = model_config["model"]
+
         extra_params = {k: v for k, v in model_config.items() if k not in known_keys}
+
         if provider == "azure":
             params["model"] = deployment_name
             extra_params.pop("deployment_name", None)
             extra_params.pop("api_version", None)
 
         if "response_format" in extra_params:
-            if provider == "azure" and kwargs.get("json_schema"):
-                extra_params["response_format"] = {
-                    "type": extra_params["response_format"],
-                    "json_schema": kwargs.get("json_schema"),
-                }
-            elif provider == "azure" and model_input_schema:
-                extra_params["response_format"] = {
-                    "type": extra_params["response_format"],
-                    "json_schema": model_input_schema,
-                }
-            else:
-                extra_params["response_format"] = {
-                    "type": extra_params["response_format"]
-                }
+            rf_type = extra_params["response_format"] 
+            rf_dict = {"type": rf_type}
+
+            schema_payload = kwargs.get("json_schema") or model_input_schema
+            if rf_type == "json_schema" and schema_payload:
+                rf_dict["json_schema"] = schema_payload
+
+            extra_params["response_format"] = rf_dict
 
         if model_config.get("model_type") == "chat_model":
             extra_params.pop("reasoning_effort", None)
@@ -125,33 +122,24 @@ class LLMClientFactory:
                 )
             extra_params.pop("temperature", None)
 
-        if extra_params.get("model_type") or not extra_params.get("model_type"):
-            extra_params.pop("model_type", None)
+        extra_params.pop("model_type", None)
         params.update(extra_params)
 
         response = client.chat.completions.create(**params)
-        response_format = extra_params.get("response_format")
-        if response_format and isinstance(response_format, dict):
-            if (
-                response_format.get("type") == "json_object"
-                or response_format.get("type") == "json_schema"
-            ):
-                try:
-                    return json.loads(response.choices[0].message.content)
-                except json.JSONDecodeError:
-                    return {}
+
+        rf_cfg = extra_params.get("response_format")
+        if rf_cfg and rf_cfg.get("type") in {"json_object", "json_schema"}:
+            try:
+                return json.loads(response.choices[0].message.content)
+            except json.JSONDecodeError:
+                return {}
         return response.choices[0].message.content
 
-    def call_reasoning_model(self, prompt: str, config: dict) -> str:
-        required_keys = ["model", "reasoning_effort", "response_format"]
-        missing = [k for k in required_keys if k not in config]
-        if missing:
-            raise KeyError(f"Missing config keys for reasoning_model: {missing}")
-        response = openai.chat.completions.create(
-            model=config["model"],
-            messages=[{"role": "user", "content": prompt}],
-            reasoning_effort=config["reasoning_effort"],
-            response_format=config["response_format"],
-        )
-        message = response.choices[0].message.content
-        return message
+    def call_reasoning_model(
+        self,
+        model_case: str,
+        messages: list,
+        **kwargs,
+    ) -> str:
+
+        return self.chat_completion(model_case, messages, **kwargs)

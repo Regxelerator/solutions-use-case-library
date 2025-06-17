@@ -15,11 +15,10 @@ class DirectoryManager:
     EXTRACTED_SUFFIX = " - Extracted Documents"
 
     def _target_root_name(self, entity: str) -> str:
-        """Return the single canonical folder name for extracted artifacts."""
         return f"{entity}{self.EXTRACTED_SUFFIX}"
 
     def __init__(
-        self, graph_client: Any, drive_id: str, artifacts_drive_id: str = None
+        self, graph_client: Any, drive_id: str, output_drive_id: str = None
     ) -> None:
         """
         Initializes the Directory Manager with a Microsoft Graph API client.
@@ -29,11 +28,11 @@ class DirectoryManager:
         """
         self.graph = graph_client
         self.drive_id = drive_id
-        self.artifacts_drive_id = artifacts_drive_id
-        self.content_extractor = ContentManager(graph_client, artifacts_drive_id)
+        self.output_drive_id = output_drive_id
+        self.content_extractor = ContentManager(graph_client, output_drive_id)
         self.folder_file_map: Dict[str, Dict[str, Dict[str, Any]]] = {}
         self.meta_data_obj = MetadataManager(
-            self.graph, artifacts_drive_id=self.artifacts_drive_id
+            self.graph, output_drive_id=self.output_drive_id
         )
 
     @staticmethod
@@ -179,12 +178,12 @@ class DirectoryManager:
         except Exception as e:
             raise Exception(f"Exception reading drive folders: {e}")
 
-    def move_files_and_folders_to_artifacts(
+    def move_files_and_folders_to_output_drive(
         self, drive_id: str, folder_file_mapping=None
     ):
         """
         Retrieves a specific entity folder and its files from the given drive,
-        processes them, and uploads metadata and content to the artifacts drive.
+        processes them, and uploads metadata and content to the outputs drive.
         Args:
             folder_file_mapping: meta folder file mapping.
             drive_id: The ID of the source drive
@@ -198,7 +197,7 @@ class DirectoryManager:
                 try:
                     meta_data = doc_info or {}
                     subfolder_id = self.graph.create_subfolder(
-                        self.artifacts_drive_id, folder_id, doc_id
+                        self.output_drive_id, folder_id, doc_id
                     )
                     mime_type = meta_data.get("mimeType")
                     text_content = None
@@ -214,7 +213,7 @@ class DirectoryManager:
 
                     metadata = meta_data.copy()
                     self.content_extractor.process_and_upload_file(
-                        self.artifacts_drive_id,
+                        self.output_drive_id,
                         drive_id=drive_id,
                         source_file_id=meta_data.get("id"),
                         target_folder_id=subfolder_id,
@@ -232,7 +231,7 @@ class DirectoryManager:
                 for entity, documents in folder_file_mapping.items():
                     target_root = self._target_root_name(entity)
                     folder_id = self.graph.create_root_folder(
-                        self.artifacts_drive_id, target_root
+                        self.output_drive_id, target_root
                     )
                     for doc_id, doc_info in documents.items():
                         future = executor.submit(
@@ -258,12 +257,12 @@ class DirectoryManager:
             print(f"Exception processing folder '{entity}': {e}")
             return {}
 
-    def move_files_and_folders_to_artifacts_by_entity(
+    def move_files_and_folders_to_output_drive_by_entity(
         self, drive_id: str, entity_name: str, folder_file_mapping=None
     ) -> Dict[Any, Any]:
         """
         Retrieves a specific entity folder and its files from the given drive,
-        processes them, and uploads metadata and content to the artifacts drive.
+        processes them, and uploads metadata and content to the outputs drive.
         Args:
             folder_file_mapping: meta folder file mapping.
             drive_id: The ID of the source drive
@@ -277,7 +276,7 @@ class DirectoryManager:
                 try:
                     meta_data = doc_info or {}
                     subfolder_id = self.graph.create_subfolder(
-                        self.artifacts_drive_id, folder_id, doc_id
+                        self.output_drive_id, folder_id, doc_id
                     )
                     mime_type = meta_data.get("mimeType")
                     text_content = None
@@ -294,7 +293,7 @@ class DirectoryManager:
 
                     metadata = meta_data.copy()
                     self.content_extractor.process_and_upload_file(
-                        self.artifacts_drive_id,
+                        self.output_drive_id,
                         drive_id=drive_id,
                         source_file_id=meta_data.get("id"),
                         target_folder_id=subfolder_id,
@@ -312,7 +311,7 @@ class DirectoryManager:
                 for entity, documents in folder_file_mapping.items():
                     target_root = self._target_root_name(entity)
                     folder_id = self.graph.create_root_folder(
-                        self.artifacts_drive_id, target_root
+                        self.output_drive_id, target_root
                     )
                     for doc_id, doc_info in documents.items():
                         future = executor.submit(

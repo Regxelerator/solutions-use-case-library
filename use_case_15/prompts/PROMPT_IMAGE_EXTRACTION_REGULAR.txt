@@ -1,4 +1,4 @@
-You are provided with a picture from a policy. Your task is to describe the content of the picture. In doing so, you apply the following principles:
+You are provided with a picture from a document. Your task is to describe the content of the picture. In doing so, you apply the following principles:
 
 1. Use objective, neutral, and expert-level language.
 2. Be specific yet succinct in your description.
