@@ -20,5 +20,3 @@ Respond only with a JSON object like this:
 Description of keys' values:
 - "image_name": A short, descriptive title for the image (no file extensions). In case of a logo, return "NOT RELEVANT".
 - "image_description": A concise description of the image content. In case of a logo, return "NOT RELEVANT".
-
-Note: If the picture appears to contain a logo, return the following exact phrase: "NOT RELEVANT".

@@ -12,9 +12,6 @@ Carefully read and analyze the document text and extract the following metadata 
 5. document_toc – The table of contents, or alternatively a list of the document’s main sections
 6. document_summary – A concise summary of the purpose and scope of the document.
 
-For the determination of the document_type you must exclusively select from one of the values
-from the provided document type list.
-
 **Additional guidelines**
 * Strictly only rely on the document text to determine the metadata values - never make assumptions about any values
 * Ensure that all keys are present in the final JSON output.
@@ -32,10 +29,3 @@ json
   "document_toc": "[Extracted table of contents in the form of an unnumbered list in the order as they appear in the document]",
   "document_summary": "[Brief summary]"
 }}
-
-
-**Input**
-
-Document type categories:
-
-{document_type_categories}
