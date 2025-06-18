@@ -2,7 +2,7 @@
 
 ## Overview
 
-In this use case, we show how to integrate large language models (LLMs) into supervisory document validation workflows to automate and enhance the process of checking document submissions against defined submission requirements such as in relation to the type and scope of documents. To mimic a realistic working environment more closely, we demonstrate how to access and organize source documents through a SharePoint connection and library as well as set up our pipeline to cater for a document types, ranging from text-based files to scanned images and PDFs.
+In this use case, we show how to integrate large language models (LLMs) into supervisory document validation workflows to automate and enhance the process of checking document submissions for completeness against defined submission requirements such as in relation to the type and scope of documents. Document completeness checks form routine components of supervisory workflows, such as during licensing, routine reporting, or other forms of entity engagement. However, unless automated, they can absorb significant time to complete given the frequent high volume of document submissions. To mimic a realistic working environment more closely, we demonstrate in our example pipeline how to access and extract source documents through a SharePoint connection and library as well as how to cater for a large variety fo document types, ranging from text-based files to scanned images and PDFs.
 
 Our pipeline consists of five principal steps:
 
