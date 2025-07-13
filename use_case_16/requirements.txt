@@ -1,0 +1,13 @@
+fastapi
+uvicorn[standard]
+python-multipart
+openai>=1.14
+PyPDF2
+python-docx
+python-pptx
+requests
+beautifulsoup4
+markdown
+pypandoc
+tiktoken
+weasyprint
