@@ -35,7 +35,7 @@ The repository is organized as a modular library, with each use case implemented
 * Use case 13: Analyzing non-financial disclosures in XBRL filings
 * Use case 14: Leveraging LLMs for simulation exercises (part 1) - considerations for modelling test personas
 * Use case 15: Automating documentation validation
-* Use case 16: Briefing memo creator (Release: July 13)
+* Use case 16: Briefing memo creator (beta - additional enhancements planned)
 
 ## Setup & installation
 
