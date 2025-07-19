@@ -135,8 +135,8 @@ export default function Tab4_Administration() {
         onChange={(e) => setMode(e.target.value)}
         sx={{ width: { xs: '100%', sm: SIDEBAR_WIDTH }, mb: 3 }}
       >
-        <option value="generate">Presets for content generation</option>
-        <option value="edit">Presets for editing</option>
+        <MenuItem value="generate">Presets for content generation</MenuItem>
+        <MenuItem value="edit">Presets for editing</MenuItem>
       </TextField>
 
       <Stack

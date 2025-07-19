@@ -32,7 +32,7 @@ from .llm import (
     extract_metadata,
     get_completion,
     _truncate_text,
-    MAX_COMPLETION_TOKENS,
+    MAX_TOKENS,
     PRESET_MODEL,
 )
 
@@ -52,14 +52,24 @@ app.add_middleware(
 
 
 def _resolve_system_prompt(mode: str, preset_key: str | None, custom_prompt: str | None) -> str:
-    if custom_prompt and custom_prompt.strip():
-        return custom_prompt.strip()
+
+    custom_prompt = (custom_prompt or "").strip()
+
+    if (preset_key or "").lower() == "custom":
+        if len(custom_prompt) < 20:
+            raise HTTPException(400, "Custom instructions must be at least 20 characters")
+        return custom_prompt
+
     default_key = "summary" if mode == "generate" else "shorter"
     key = preset_key or default_key
     preset = _get_preset(mode, key)
     if not preset:
         raise HTTPException(400, f"Preset not found: {key}")
-    return preset["prompt"].strip()
+
+    base = preset["prompt"].rstrip()
+    if custom_prompt:
+        base = f"{base}\n\n**Additional guidance:**\n{custom_prompt}"
+    return base
 
 
 @app.get("/api/masterlist")
@@ -146,13 +156,17 @@ async def generate_content(sec_id: str, payload: dict):
         raise HTTPException(400, "source_ids required")
 
     raw_snippets = "\n\n".join(get_content(cid) or "" for cid in source_ids)
-    snippets = _truncate_text(raw_snippets, MAX_COMPLETION_TOKENS, PRESET_MODEL)
+    snippets = _truncate_text(raw_snippets, MAX_TOKENS, PRESET_MODEL)
 
-    system_prompt = _resolve_system_prompt("generate", payload.get("preset"), payload.get("custom_prompt"))
+    system_prompt = _resolve_system_prompt(
+        "generate",
+        payload.get("preset"),
+        payload.get("custom_prompt"),
+    )
 
     messages = [
         {"role": "system", "content": system_prompt},
-        {"role": "user", "content": f"Relevant excerpts (between ===):\n===\n{snippets}\n==="},
+        {"role": "user", "content": f"\n===\n{snippets}\n==="},
     ]
 
     patch_section(sec_id, {"status": "Generating"})
@@ -161,20 +175,24 @@ async def generate_content(sec_id: str, payload: dict):
     return {"content": text}
 
 
-@app.post("/api/memo/section/{sec_id}/transform")
-async def transform_content(sec_id: str, payload: dict):
+@app.post("/api/memo/section/{sec_id}/edit")
+async def edit_content(sec_id: str, payload: dict):
     text = payload.get("text", "").strip()
     if not text:
         raise HTTPException(400, "text is required")
 
-    system_prompt = _resolve_system_prompt("edit", payload.get("preset"), payload.get("custom_prompt"))
+    system_prompt = _resolve_system_prompt(
+        "edit",
+        payload.get("preset"),
+        payload.get("custom_prompt"),
+    )
 
     messages = [
         {"role": "system", "content": system_prompt},
         {"role": "user", "content": text},
     ]
 
-    patch_section(sec_id, {"status": "Transforming"})
+    patch_section(sec_id, {"status": "Editing"})
     new_text = await get_completion(messages)
     patch_section(sec_id, {"content": new_text, "status": "Draft"})
     return {"content": new_text}

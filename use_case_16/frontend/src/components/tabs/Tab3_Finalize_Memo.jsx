@@ -25,10 +25,8 @@ import {
   useTheme,
 } from '@mui/material';
 import DragIndicatorIcon from '@mui/icons-material/DragIndicator';
-import RefreshIcon from '@mui/icons-material/Refresh';
 import { DragDropContext, Draggable, Droppable } from 'react-beautiful-dnd';
 
-                                                  
 const statusColour = (s) =>
   s === 'Ready' ? 'success' : s === 'Draft' ? 'default' : 'warning';
 
@@ -48,13 +46,14 @@ export default function Tab3_Finalize_Memo() {
   const SIDEBAR_WIDTH = 340;
 
   const [sections, setSections] = useState([]);
-  const [outline, setOutline] = useState([]); 
+  const [outline, setOutline] = useState([]);
   const [title, setTitle] = useState('Untitled memo');
 
-  const [exportFmt, setExportFmt] = useState('docx'); 
+  const [exportFmt, setExportFmt] = useState('docx');
   const [pending, setPending] = useState(false);
   const [snack, setSnack] = useState(false);
 
+  /* ------------ initial & polling load ------------ */
   useEffect(() => {
     (async () => {
       const { data } = await axios.get('/api/memo');
@@ -71,11 +70,7 @@ export default function Tab3_Finalize_Memo() {
     return () => clearInterval(int);
   }, []);
 
-  const outlineMap = useMemo(
-    () => Object.fromEntries(outline.map((o) => [o.id, o.included])),
-    [outline]
-  );
-
+  /* ------------ memo‑derived helpers ------------ */
   const mergedMd = useMemo(
     () =>
       outline
@@ -88,6 +83,13 @@ export default function Tab3_Finalize_Memo() {
     [outline, sections]
   );
 
+  const sortWithOutlineFirst = (arr) => {
+    const idx = arr.findIndex((o) => o.label === 'OUTLINE_FIRST_SENTINEL');
+    if (idx === -1) return arr;                            // nothing to do
+    const [outline] = arr.splice(idx, 1);
+    return [outline, ...arr];                              // move to front
+  };
+
   const toggleInclude = (id) =>
     setOutline((o) =>
       o.map((x) => (x.id === id ? { ...x, included: !x.included } : x))
@@ -98,9 +100,10 @@ export default function Tab3_Finalize_Memo() {
     const reordered = [...outline];
     const [moved] = reordered.splice(source.index, 1);
     reordered.splice(destination.index, 0, moved);
-    setOutline(reordered);
+    setOutline(sortWithOutlineFirst(reordered));           // keep outline first
   };
 
+  /* ------------ actions ------------ */
   const markAllReady = async () => {
     await Promise.all(
       sections.map((s) =>
@@ -108,6 +111,41 @@ export default function Tab3_Finalize_Memo() {
       )
     );
     setSections((s) => s.map((x) => ({ ...x, status: 'Ready' })));
+  };
+
+  const createOutline = async () => {
+    const outlineLines = outline
+      .map((o, i) => {
+        const s = sections.find((sec) => sec.id === o.id);
+        return s ? `* ${s.title}` : null;
+      })
+      .filter(Boolean)
+      .join('\n');
+
+    /* check if an Outline section already exists */
+    let outlineSection = sections.find((s) => s.title === 'Outline');
+
+    if (!outlineSection) {
+      const { data } = await axios.post('/api/memo/section', {
+        title: 'Outline',
+      });
+      outlineSection = { ...data, content: '', status: 'Draft', sources: [] };
+      setSections((s) => [...s, outlineSection]);
+      setOutline((o) => [{ id: outlineSection.id, included: true }, ...o]);
+    }
+
+    await axios.patch(`/api/memo/section/${outlineSection.id}`, {
+      content: outlineLines,
+      status: 'Ready',
+    });
+
+    setSections((s) =>
+      s.map((sec) =>
+        sec.id === outlineSection.id
+          ? { ...sec, content: outlineLines, status: 'Ready' }
+          : sec
+      )
+    );
   };
 
   const validate = () =>
@@ -150,6 +188,7 @@ export default function Tab3_Finalize_Memo() {
     }
   };
 
+  /* ------------ outline pane ------------ */
   const outlineItems = (
     <DragDropContext onDragEnd={handleDragEnd}>
       <Droppable droppableId="toc">
@@ -193,27 +232,37 @@ export default function Tab3_Finalize_Memo() {
                         </Typography>
                       </Box>
 
-
                       <Chip
                         label={sec.status}
                         size="small"
                         color={statusColour(sec.status)}
-                        sx={{ alignSelf: 'center', mr: 2 }}           
+                        sx={{ alignSelf: 'center', mr: 2 }}
                       />
 
-                      <Box sx={{ width: 24, height: 24, position: 'relative', flexShrink: 0 }}>
+                      <Box
+                        sx={{
+                          width: 24,
+                          height: 24,
+                          position: 'relative',
+                          flexShrink: 0,
+                        }}
+                      >
                         {hasIssue && (
                           <Badge
                             color="error"
                             variant="dot"
                             overlap="circular"
-                            sx={{ position: 'absolute', top: '50%', right: 0, transform: 'translateY(-50%)' }}
+                            sx={{
+                              position: 'absolute',
+                              top: '50%',
+                              right: 0,
+                              transform: 'translateY(-50%)',
+                            }}
                           >
                             <Box sx={{ width: 0, height: 0 }} />
                           </Badge>
                         )}
                       </Box>
-                      
                     </Stack>
                   )}
                 </Draggable>
@@ -243,7 +292,7 @@ export default function Tab3_Finalize_Memo() {
           onClick={markAllReady}
           sx={{ color: '#fff' }}
         >
-          Mark as Complete
+          Mark selected sections as complete
         </Button>
       </Box>
     </Stack>
@@ -271,6 +320,7 @@ export default function Tab3_Finalize_Memo() {
     </Paper>
   );
 
+  /* ------------ preview pane ------------ */
   const preview = (
     <Card
       elevation={0}
@@ -282,29 +332,32 @@ export default function Tab3_Finalize_Memo() {
         display: 'flex',
         flexDirection: 'column',
         minWidth: 0,
-        p: 2, 
+        p: 2,
       }}
     >
-      
-    <CardContent sx={{ overflow: 'auto', flex: 1, p: 2 }} id="preview-scroll">
-      <ReactMarkdown
-        components={{
-          h2: ({ node, ...props }) => (
-            <Typography variant="subtitle1" fontWeight={600} gutterBottom {...props} />
-          ),
-          p: ({ node, ...props }) => (
-            <Typography
-              variant="body2"
-              sx={{ fontSize: '0.9rem', lineHeight: 1.45, mb: 1 }}
-              {...props}
-            />
-          ),
-        }}
-      >
-        {mergedMd || '_Nothing to preview…_'}
-      </ReactMarkdown>
-    </CardContent>
-
+      <CardContent sx={{ overflow: 'auto', flex: 1, p: 2 }} id="preview-scroll">
+        <ReactMarkdown
+          components={{
+            h2: ({ node, ...props }) => (
+              <Typography
+                variant="subtitle1"
+                fontWeight={600}
+                gutterBottom
+                {...props}
+              />
+            ),
+            p: ({ node, ...props }) => (
+              <Typography
+                variant="body2"
+                sx={{ fontSize: '0.9rem', lineHeight: 1.45, mb: 1 }}
+                {...props}
+              />
+            ),
+          }}
+        >
+          {mergedMd || '_Nothing to preview…_'}
+        </ReactMarkdown>
+      </CardContent>
 
       <Divider flexItem />
       <Stack
@@ -314,16 +367,17 @@ export default function Tab3_Finalize_Memo() {
         justifyContent="space-between"
         alignItems="center"
       >
-        <Button
-          size="small"
-          startIcon={<RefreshIcon />}
-          onClick={() => setSections([...sections])}
-        >
-          Refresh preview
-        </Button>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={createOutline}
+        sx={{ minWidth: 160, maxWidth: 260, px: 3, color: '#fff' }}
+      >
+        Create Outline
+      </Button>
+
 
         <Stack direction="row" spacing={1} alignItems="center">
-        
           <Button
             variant="contained"
             size="small"
@@ -376,12 +430,9 @@ export default function Tab3_Finalize_Memo() {
     </Card>
   );
 
+  /* ------------ render ------------ */
   return (
-    <Paper
-      elevation={0}
-      variant="outlined"
-      sx={{ p: 4, borderColor: 'grey.300' }}
-    >
+    <Paper elevation={0} variant="outlined" sx={{ p: 4, borderColor: 'grey.300' }}>
       <Typography variant="h6" gutterBottom>
         Draft memo
       </Typography>
@@ -393,7 +444,7 @@ export default function Tab3_Finalize_Memo() {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             placeholder="Memo title"
-            sx={{ width: isSmall ? '100%' : SIDEBAR_WIDTH }} 
+            sx={{ width: isSmall ? '100%' : SIDEBAR_WIDTH }}
           />
         </Stack>
 

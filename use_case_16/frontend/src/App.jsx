@@ -6,8 +6,17 @@ import Tab2_Create_Memo from './components/tabs/Tab2_Create_Memo';
 import Tab3_Finalize_Memo from './components/tabs/Tab3_Finalize_Memo';
 import Tab4_Administration from './components/tabs/Tab4_Administration';
 
+const TAB_STORAGE_KEY = 'bmc_active_tab';          
+
 export default function App() {
-  const [tab, setTab] = React.useState(0);
+  const [tab, setTab] = React.useState(() => {
+    const saved = parseInt(localStorage.getItem(TAB_STORAGE_KEY), 10);
+    return Number.isFinite(saved) && saved >= 0 && saved <= 3 ? saved : 0;
+  });
+
+  React.useEffect(() => {
+    localStorage.setItem(TAB_STORAGE_KEY, String(tab));
+  }, [tab]);
 
   return (
     <Box sx={{ p: 2 }}>
@@ -15,7 +24,7 @@ export default function App() {
         variant="h4"
         component="h2"
         fontWeight={300}
-        sx={{ mb: 5, mt: 1 }}          
+        sx={{ mb: 5, mt: 1 }}
       >
         Briefing Memo Creator
       </Typography>

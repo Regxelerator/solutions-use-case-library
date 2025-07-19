@@ -20,7 +20,7 @@ METADATA_MODEL = os.getenv("OPENAI_METADATA_MODEL", "gpt-4o-mini")
 PRESET_MODEL = os.getenv("OPENAI_PRESET_MODEL", "gpt-4o")
 
 MAX_METADATA_TOKENS = 100_000
-MAX_COMPLETION_TOKENS = 100_000         
+MAX_TOKENS = 100_000         
 
 LOG_PATH = Path(__file__).parent / "llm_calls.jsonl"
 _LOG_LOCK = asyncio.Lock()
@@ -94,7 +94,7 @@ async def get_completion(messages: list[dict], temperature: float = 0.2) -> str:
 
     if prepared and prepared[-1]["role"] == "user":                      
         prepared[-1]["content"] = _truncate_text(                        
-            prepared[-1]["content"], MAX_COMPLETION_TOKENS, PRESET_MODEL 
+            prepared[-1]["content"], MAX_TOKENS, PRESET_MODEL 
         )                                                                
 
     resp = await client.chat.completions.create(

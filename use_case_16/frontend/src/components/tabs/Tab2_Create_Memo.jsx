@@ -60,7 +60,7 @@ export default function Tab2_Create_Memo() {
   const [contentBank, setContentBank] = useState([]);
 
   const [titleInput, setTitleInput] = useState('');
-  const [mode, setMode] = useState('create'); 
+  const [mode, setMode] = useState('create');
   const [busy, setBusy] = useState(false);
 
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -83,6 +83,11 @@ export default function Tab2_Create_Memo() {
   const genCustomRef = useRef('');
   const editPresetRef = useRef('shorter');
   const editCustomRef = useRef('');
+
+  const [genPresetKey, setGenPresetKey] = useState('summary');
+  const [editPresetKey, setEditPresetKey] = useState('shorter');
+  const [genCustomText, setGenCustomText] = useState('');
+  const [editCustomText, setEditCustomText] = useState('');
 
   useEffect(() => {
     (async () => {
@@ -143,6 +148,8 @@ export default function Tab2_Create_Memo() {
 
   const runGenerate = async () => {
     if (!selected || !active.sources.length) return;
+    const isCustom = genPresetKey === 'custom';
+    if (isCustom && genCustomText.trim().length < 20) return;
 
     setBusy(true);
     patchSection(selected, { status: 'Generating' });
@@ -151,9 +158,9 @@ export default function Tab2_Create_Memo() {
       const { data } = await axios.post(
         `/api/memo/section/${selected}/generate`,
         {
-          source_ids: active.sources,          
-          preset: genPresetRef.current,        
-          custom_prompt: genCustomRef.current,
+          source_ids: active.sources,
+          preset: genPresetKey,
+          custom_prompt: genCustomText,
         }
       );
 
@@ -164,19 +171,21 @@ export default function Tab2_Create_Memo() {
     }
   };
 
-  const runTransform = async () => {
+  const runEdit = async () => {
     if (!selected || !active.content) return;
+    const isCustom = editPresetKey === 'custom';
+    if (isCustom && editCustomText.trim().length < 20) return;
 
     setBusy(true);
-    patchSection(selected, { status: 'Transforming' });
+    patchSection(selected, { status: 'Editing' });
 
     try {
       const { data } = await axios.post(
-        `/api/memo/section/${selected}/transform`,
+        `/api/memo/section/${selected}/edit`,
         {
-          preset: editPresetRef.current,       
-          custom_prompt: editCustomRef.current,
-          text: active.content,                
+          preset: editPresetKey,
+          custom_prompt: editCustomText,
+          text: active.content,
         }
       );
 
@@ -192,9 +201,9 @@ export default function Tab2_Create_Memo() {
     const t = setInterval(() => {
       const sec = sectionsRef.current.find((s) => s.id === selected);
       if (sec && sec.status === 'Draft') saveContent(selected, sec.content);
-    }, 10_000);                              
-    return () => clearInterval(t);           
-  }, [selected]); 
+    }, 10_000);
+    return () => clearInterval(t);
+  }, [selected]);
 
   const coveredIds = new Set(sections.flatMap((s) => s.sources));
   const uploadRows = contentBank.map((c) => ({
@@ -252,13 +261,34 @@ export default function Tab2_Create_Memo() {
       const ep = await axios.get('/api/presets?mode=edit');
       setGenPresets(gp.data);
       setEditPresets(ep.data);
-      genPresetRef.current = gp.data[0]?.key ?? '';
-      editPresetRef.current = ep.data[0]?.key ?? '';
+
+      const gDefault = gp.data[0]?.key ?? 'summary';
+      const eDefault = ep.data[0]?.key ?? 'shorter';
+
+      setGenPresetKey(gDefault);
+      setEditPresetKey(eDefault);
+      genPresetRef.current = gDefault;
+      editPresetRef.current = eDefault;
     })();
   }, []);
 
   const isCreateActive = mode === 'create';
   const isEditActive = mode === 'edit';
+
+  const genIsCustom = genPresetKey === 'custom';
+  const editIsCustom = editPresetKey === 'custom';
+
+  const genButtonDisabled =
+    busy ||
+    !active?.sources.length ||
+    !isCreateActive ||
+    (genIsCustom && genCustomText.trim().length < 20);
+
+  const editButtonDisabled =
+    busy ||
+    !active?.content ||
+    !isEditActive ||
+    (editIsCustom && editCustomText.trim().length < 20);
 
   return (
     <>
@@ -303,7 +333,7 @@ export default function Tab2_Create_Memo() {
                             <Paper
                               ref={p.innerRef}
                               {...p.draggableProps}
-                              {...p.dragHandleProps} 
+                              {...p.dragHandleProps}
                               sx={{
                                 p: 1,
                                 mb: 1,
@@ -319,7 +349,6 @@ export default function Tab2_Create_Memo() {
                                 setSelected(sec.id);
                               }}
                             >
-
                               <DragIndicatorIcon
                                 fontSize="small"
                                 sx={{ cursor: 'grab', color: 'text.disabled', pointerEvents: 'auto' }}
@@ -475,7 +504,7 @@ export default function Tab2_Create_Memo() {
                       onChange={(e) =>
                         patchSection(selected, { content: e.target.value, status: 'Draft' })
                       }
-                      onBlur={(e) => saveContent(selected, e.target.value)}   
+                      onBlur={(e) => saveContent(selected, e.target.value)}
                       sx={{ p: 2 }}
                     />
                   )}
@@ -504,12 +533,15 @@ export default function Tab2_Create_Memo() {
                           select
                           size="small"
                           label="Preset"
-                          defaultValue="summary"
-                          onChange={(e) => (genPresetRef.current = e.target.value)}
+                          value={genPresetKey}
+                          onChange={(e) => {
+                            setGenPresetKey(e.target.value);
+                            genPresetRef.current = e.target.value;
+                          }}
                           disabled={!isCreateActive}
                           fullWidth
                         >
-                          {genPresets.map((p) => (
+                          {[...genPresets, { key: 'custom', label: 'Custom' }].map((p) => (
                             <MenuItem key={p.key} value={p.key}>
                               {p.label}
                             </MenuItem>
@@ -517,11 +549,24 @@ export default function Tab2_Create_Memo() {
                         </TextField>
 
                         <TextField
-                          label="Additional guidance (optional)"
+                          label={
+                            genIsCustom
+                              ? 'Custom instructions *'
+                              : 'Additional guidance (optional)'
+                          }
+                          placeholder={
+                            genIsCustom
+                              ? 'Provide custom instructions (min 20 characters)'
+                              : 'Any extra guidance…'
+                          }
                           multiline
                           minRows={3}
                           size="small"
-                          onChange={(e) => (genCustomRef.current = e.target.value)}
+                          value={genCustomText}
+                          onChange={(e) => {
+                            setGenCustomText(e.target.value);
+                            genCustomRef.current = e.target.value;
+                          }}
                           disabled={!isCreateActive}
                           fullWidth
                         />
@@ -530,7 +575,7 @@ export default function Tab2_Create_Memo() {
                           variant="contained"
                           color="secondary"
                           onClick={runGenerate}
-                          disabled={busy || !active.sources.length || !isCreateActive}
+                          disabled={genButtonDisabled}
                           fullWidth
                           disableElevation
                         >
@@ -562,12 +607,15 @@ export default function Tab2_Create_Memo() {
                           select
                           size="small"
                           label="Preset"
-                          defaultValue="shorter"
-                          onChange={(e) => (editPresetRef.current = e.target.value)}
+                          value={editPresetKey}
+                          onChange={(e) => {
+                            setEditPresetKey(e.target.value);
+                            editPresetRef.current = e.target.value;
+                          }}
                           disabled={!isEditActive}
                           fullWidth
                         >
-                          {editPresets.map((p) => (
+                          {[...editPresets, { key: 'custom', label: 'Custom' }].map((p) => (
                             <MenuItem key={p.key} value={p.key}>
                               {p.label}
                             </MenuItem>
@@ -575,11 +623,24 @@ export default function Tab2_Create_Memo() {
                         </TextField>
 
                         <TextField
-                          label="Additional guidance (optional)"
+                          label={
+                            editIsCustom
+                              ? 'Custom instructions *'
+                              : 'Additional guidance (optional)'
+                          }
+                          placeholder={
+                            editIsCustom
+                              ? 'Provide custom instructions (min 20 characters)'
+                              : 'Any extra guidance…'
+                          }
                           multiline
                           minRows={3}
                           size="small"
-                          onChange={(e) => (editCustomRef.current = e.target.value)}
+                          value={editCustomText}
+                          onChange={(e) => {
+                            setEditCustomText(e.target.value);
+                            editCustomRef.current = e.target.value;
+                          }}
                           disabled={!isEditActive}
                           fullWidth
                         />
@@ -587,12 +648,12 @@ export default function Tab2_Create_Memo() {
                         <Button
                           variant="contained"
                           color="secondary"
-                          onClick={runTransform}
-                          disabled={busy || !active.content || !isEditActive}
+                          onClick={runEdit}
+                          disabled={editButtonDisabled}
                           fullWidth
                           disableElevation
                         >
-                          {busy && active.status.startsWith('Trans') ? 'Transforming…' : 'Transform'}
+                          {busy && active.status.startsWith('Trans') ? 'Editing…' : 'Edit'}
                         </Button>
                       </Stack>
                     </Box>
