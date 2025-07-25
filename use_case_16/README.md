@@ -1,4 +1,4 @@
-# Use Case 16: Briefing Memo Creator (Beta) 
+# Use Case 16: Briefing Memo Creator (Basic) 
 
 ## Overview
 
@@ -14,7 +14,8 @@ Additionally, an administration tab offers the ability to directly edit existing
 
 For this use case, no sample input files or requirements are provided. Users can upload their own internal or external documents via the frontend when testing the application.
 
-For additional information about the workflow and the individual steps, please visit Regxelerator's use case library: https://regxelerator.com/solutions/use-case-library
+For additional information about the workflow and the individual steps, please visit Regxelerator's use case library: https://regxelerator.com/solutions/use-case-library.
+For a more advanced implementation of the memo creator, refer to companion Use Case 17.
 <br></br>
 
 
