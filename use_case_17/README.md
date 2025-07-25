@@ -69,6 +69,8 @@ use_case_16/
 │       ├── content_metadata_loader.py
 │       └── critic_tool.py
 │
+├── agentic_flow_feedback_integration/          # Agent‑specific code for the revision of the memo based on user feedback (to come)
+│
 ├── uploads/                                    # Auto‑created; holds raw files
 ├── memo_sections.json                          # Generated memo data
 ├── requirements.txt                            # Python dependencies
