@@ -136,7 +136,7 @@ Run the application as follows:
 
 ```sh
 cd backend
-uvicorn app:app --reload --port 8000
+py uvicorn app:app --reload --port 8000
 
 cd frontend
 npm run dev     

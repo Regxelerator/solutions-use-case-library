@@ -1,5 +1,9 @@
-from agents import ToolCallOutputItem, RunResult
-from agent_library.critic_agent import create_critic_agent
+# tools/critic_tool.py
+from agents import RunResult           # ToolCallOutputItem isn’t needed
+# 👇 import directly, no circular reference
+from agentic_flow_memo_creation.agent_library.critic_agent import (
+    create_critic_agent,
+)
 
 _CRITIC = create_critic_agent()
 
@@ -8,9 +12,9 @@ async def _evaluation_json(run: RunResult) -> str:
 
 critic_tool = _CRITIC.as_tool(
     tool_name="critic_tool",
-    tool_description=("""
-        Run style guide and factual checks on a draft outputs; returns an evaluation JSON string.
-        """
+    tool_description=(
+        "Run style‑guide and factual checks on draft outputs; "
+        "returns an Evaluation_Report JSON string."
     ),
-    custom_output_extractor=_evaluation_json
+    custom_output_extractor=_evaluation_json,
 )

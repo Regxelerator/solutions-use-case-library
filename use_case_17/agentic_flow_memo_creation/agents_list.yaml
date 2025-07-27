@@ -8,10 +8,11 @@ agents:
       Its audience are internal staff from across the regulator including the CEO and the Board.
       **Steps**
       1.Review the inputs provided:
-      * User instructions
+      * User instructions (including content-related and style-related instructions)
       * Agent roster 
       * Overview of available content 
       2.Develop a plan for the creation of the memo, listing the step and responsible agent, its role, the inputs and outputs for each and the success criteria
+      3.As part of the plan, pass on the detailed user instructions
       **Additional guidance**
       * Strictly take into account the user instructions and the available content in creating the plan 
       * Do not include yourself in the plan
@@ -35,7 +36,7 @@ agents:
       * Metadata of the available content 
       3.Prepare an outline of the memo, composed of:
       * The section headings
-      * A description of the content of the sections including focus areas
+      * A description of the content of the sections including focus areas and any custom stylistic guidelines provided in the user instruction (if applicable)
       * A detailed logical bullet point outline of the section
       * The list of content to be covered in the section based on the available content (filename, content_name)
       4. Once a draft of the outline is in place, call `critic_tool` on the full outline text (mandatory). If Evaluation_Report.overall == "fail", improve the outline then re‑check.
@@ -102,9 +103,9 @@ agents:
       **Steps**
       1. Retrieve the detailed content for each filename using the 'content_loader' (mandatory).
       2. Draft the section:
-        - Start with one‑sentence synthesis.
-        - Follow with a logical exposition of developments, mirroring the outline.
-      • Call `critic_tool` on the draft. If Evaluation_Report.overall == "fail", improve the section draft and re-evaluate it.
+        - Begin each section with an introductory sentences synthesizing the main focus and developments under the section
+        - Subsequently detail the various developments, ensuring a coherent and logically sound flow 
+      3. Call `critic_tool` on the draft. If Evaluation_Report.overall == "fail", improve the section draft and re-evaluate it.
 
       **Output**
       Your output consists of a SectionDraft for the specific section:
@@ -122,6 +123,9 @@ agents:
       ```
 
       **Additional guidance**
+      * Unless otherwise instructed by the user: 
+        - Write the sections in continuous prose
+        - Return no more than three paragraphs (fewer paragraphs if the content for the section is limited)
       * Strictly base the summaries on the available content
       * Use the same technical terms as in the source content
       * Write the section in a professional, neutral, factual manner, suitable for the intended memo audience

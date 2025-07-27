@@ -4,7 +4,7 @@ from typing import List, Dict
 
 from agents.tool import function_tool
 
-_CONTENT_FILE = Path(__file__).resolve().parents[1] / "content_masterlist.json"
+_CONTENT_FILE = Path(__file__).resolve().parents[2] / "content_masterlist.json"
 
 _RETURN_FIELDS = [
     "filename",
