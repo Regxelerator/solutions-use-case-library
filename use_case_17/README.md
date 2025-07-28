@@ -10,7 +10,7 @@ The workflow also here is broken down into three main steps:
 
 * Step 1: Uploading internal or external content into the app, with automated content and metadata extraction (as in Use Case 16)
 * Step 2: Generating individual sections of the memo via an agentic workflow based on uploaded content and initial user instructions
-* Step 3: Revising the draft memo through a separate agentic workflow, automatically incorporating user feedback (coming soon)
+* Step 3: Revising the draft memo through a separate agentic workflow, automatically incorporating user feedback
 
 To illustrate the tool in practice, the prototype includes a demonstration scenario involving a briefing memo for the international affairs department of a regulatory authority.
 
