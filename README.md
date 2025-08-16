@@ -37,7 +37,7 @@ The repository is organized as a modular library, with each use case implemented
 * Use case 15: Automating documentation validation
 * Use case 16: Briefing memo creator (basic)
 * Use case 17: Briefing memo creator (agentic)
-* Use case 18: Agentic risk incident reporting platform (alpha)
+* Use case 18: Agentic risk incident reporting platform
 
 ## Setup & installation
 
