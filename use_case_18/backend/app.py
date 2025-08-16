@@ -1,5 +1,9 @@
 from __future__ import annotations
-import json, logging, uuid
+import json, logging, uuid, os
+from dotenv import load_dotenv
+
+load_dotenv()
+
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -11,6 +15,9 @@ from risk_agents.context import IncidentRunContext
 
 log = logging.getLogger("backend")
 logging.basicConfig(level=logging.INFO, format="%(levelname)s  %(message)s")
+
+if not os.getenv("OPENAI_API_KEY"):
+    log.warning("OPENAI_API_KEY not set; LLM calls may fail.")
 
 app = FastAPI(title="Risk-Incident Backend")
 app.add_middleware(
