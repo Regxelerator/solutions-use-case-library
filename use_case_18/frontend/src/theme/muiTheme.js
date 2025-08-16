@@ -25,8 +25,12 @@ const muiTheme = createTheme({
 
   typography: {
     fontFamily: '"Roboto","Helvetica","Arial",sans-serif',
-    h5: { fontWeight: 500 },
-    subtitle1: { fontWeight: 500 },
+    h5: { fontSize: 22, fontWeight: 500 },
+    body1: { fontSize: 16 },
+    body2: { fontSize: 14 },     
+    subtitle1: { fontSize: 16, fontWeight: 500 }, 
+    caption: { fontSize: 14 },
+    overline: { fontSize: 14 },
     button: { textTransform: 'none', fontWeight: 500 },
   },
 
@@ -81,11 +85,24 @@ const muiTheme = createTheme({
           borderColor: '#E5E7EB',
         },
         input: {
+          fontSize: 16,
           '&.Mui-disabled': {
             WebkitTextFillColor: 'inherit',
             opacity: 1,
           },
         },
+      },
+    },
+
+    MuiInputLabel: {
+      styleOverrides: {
+        root: { fontSize: 16 },
+      },
+    },
+
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: { fontSize: 14 },
       },
     },
 

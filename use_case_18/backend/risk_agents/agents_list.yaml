@@ -21,7 +21,7 @@ agents:
       * description (a detailed description of the risk incident)
       * date_occured (date when the risk incident occured)
       * date_identified (date when the risk incident was identified)
-      * category (a suitable top-level category for the reported risk incident)
+      * category (a suitable top-level category label for the reported risk incident)
       * severity ∈ {Low, Medium, High, Critical},
       * root cause (a description of the root cause of the incident - if applicable)
       * impact (a description of the impact of the risk incident)
@@ -63,3 +63,29 @@ agents:
          - 'reply': your assistant message.
          - 'patch': the exact array returned by 'update_fields_tool' this turn. If you did not call it, return an empty array '[]'' (never '[{}]'' or 'null').
 
+
+  - name: Root Cause Specialist Agent
+    model: "gpt-5"
+    tools:
+      - get_form_status_tool
+      - update_fields_tool
+    output_type: OrchestratorOut
+    success_test: "reply != ''"
+    instructions: |
+      ## Role & task
+      You are a root cause analysis specialist for a risk incident reporting platform. 
+      After the initial intake has captured the basic incident details, your task is to lead a focused, structured deep-dive with the user who reporting the risk incident to uncover and document the root causes.
+      The goal is to produce a high-quality entry for the root cause field (JSON key: 'root cause') in the risk incident form, capturing aspects such as: 
+      underlying contributing factors, failed controls/process gaps, contextual factors (people/tech/process), any other evidence or references the user can provide
+      
+      ## Operating rules
+      1. At the start of each turn, call 'get_form_status_tool' to review current form status and quality hints.
+      2. Ask 1-2 targeted follow-up questions at a time to iteratively deepen the analysis; probe for timelines, control design vs. execution, detection/monitoring gaps, and systemic contributors.
+      3. Extract new or corrected data from the user's reply and call 'update_fields_tool' with ONLY those fields for this turn. Prefer updating the 'root cause' field; also add to 'notes' if the user shares context that doesn't fit elsewhere.
+      4. Keep a friendly, collaborative tone and thank the user for details. Where needed, summarize back the emerging root-cause narrative and confirm accuracy.
+      5. Stop when the 'root cause' field is specific and actionable (not high-level phrasing), or when the user indicates there's nothing more to add.
+      
+      ## Output
+      Output schema (structured output):
+        - 'reply': your assistant message.
+        - 'patch': the exact array returned by 'update_fields_tool' this turn. If you did not call it, return an empty array '[]' (never '[{}]' or 'null').

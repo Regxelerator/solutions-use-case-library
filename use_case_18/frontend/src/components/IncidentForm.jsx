@@ -10,7 +10,15 @@ import {
   FormControlLabel,
   Button,
   Alert,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Stack,
 } from '@mui/material';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 import axios from 'axios';
 import { useIncidentStore } from '../store/incident';
 
@@ -32,6 +40,17 @@ const REQUIRED_FIELDS = [
 ];
 
 const SEVERITY_OPTIONS = ['Low', 'Medium', 'High', 'Critical'];
+
+const CATEGORY_OPTIONS = [
+  'Strategy risk',
+  'Cyber security risk',
+  'Security risk',
+  'Legal risk',
+  'People risk',
+  'Technology risk',
+  'Information risk',
+  'Financial risk',
+];
 
 const uniformOutlineSx = {
   '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
@@ -79,7 +98,7 @@ function DisabledField({
       name={name}
       value={value ?? ''}
       multiline={multiline}
-      minRows={multiline ? rows : undefined}
+      rows={multiline ? rows : undefined}
       type={effectiveType}
       select={select}
       helperText={helperText}
@@ -116,6 +135,13 @@ export default function IncidentForm() {
   const [consent, setConsent] = React.useState(false);
   const [submitting, setSubmitting] = React.useState(false);
 
+  const [dialog, setDialog] = React.useState({
+    open: false,
+    type: 'success',
+    title: '',
+    message: '',
+  });
+
   const complete = REQUIRED_FIELDS.every((k) => {
     const v = draft?.[k];
     return v !== undefined && v !== null && String(v).trim() !== '';
@@ -125,19 +151,35 @@ export default function IncidentForm() {
     try {
       setSubmitting(true);
       await axios.post('/api/incidents/submit', draft);
-      alert('Incident submitted – thank you.');
-      location.reload();
+      setDialog({
+        open: true,
+        type: 'success',
+        title: 'Incident submitted',
+        message: 'Incident submitted – thank you.',
+      });
     } catch (e) {
-      alert('Submit failed – see console.');
       console.error(e);
+      setDialog({
+        open: true,
+        type: 'error',
+        title: 'Submit failed',
+        message: 'Submit failed – see console.',
+      });
     } finally {
       setSubmitting(false);
     }
   };
 
+  const handleDialogClose = () => {
+    const wasSuccess = dialog.type === 'success';
+    setDialog((d) => ({ ...d, open: false }));
+    if (wasSuccess) {
+      location.reload();
+    }
+  };
+
   return (
     <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column', minHeight: 0 }}>
-      {/* Top bar */}
       <Box
         sx={{
           px: 2,
@@ -156,7 +198,7 @@ export default function IncidentForm() {
       </Box>
       <Divider />
 
-      <Box sx={{ flex: 1, p: 2, pt: 1, minHeight: 0 }}>
+      <Box sx={{ flex: 1, p: 2, pt: 1, minHeight: 0, overflowY: 'auto' }}>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <Typography variant="overline">Reporter details</Typography>
@@ -203,6 +245,8 @@ export default function IncidentForm() {
             <DisabledField
               name="category"
               label="Category"
+              select
+              options={CATEGORY_OPTIONS}
               value={draft?.category}
             />
           </Grid>
@@ -218,15 +262,6 @@ export default function IncidentForm() {
 
           <Grid item xs={12}>
             <Typography variant="overline">Analysis & actions</Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <DisabledField
-              name="root cause"
-              label="Root cause analysis"
-              multiline
-              rows={3}
-              value={draft?.['root cause']}
-            />
           </Grid>
           <Grid item xs={12}>
             <DisabledField
@@ -254,6 +289,16 @@ export default function IncidentForm() {
               multiline
               rows={5}
               value={draft?.remediation}
+            />
+          </Grid>
+
+          <Grid item xs={12}>
+            <DisabledField
+              name="root cause"
+              label="Root cause analysis"
+              multiline
+              rows={3}
+              value={draft?.['root cause']}
             />
           </Grid>
 
@@ -317,6 +362,29 @@ export default function IncidentForm() {
           {submitting ? 'Submitting…' : 'Submit incident'}
         </Button>
       </Box>
+
+      <Dialog open={dialog.open} onClose={handleDialogClose} fullWidth maxWidth="xs">
+        <DialogTitle sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          {dialog.type === 'success' ? (
+            <CheckCircleOutlineIcon color="primary" />
+          ) : (
+            <ErrorOutlineIcon color="error" />
+          )}
+          {dialog.title}
+        </DialogTitle>
+        <DialogContent dividers>
+          <DialogContentText>
+            {dialog.message}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Stack direction="row" spacing={1} sx={{ px: 1, py: 0.5 }}>
+            <Button onClick={handleDialogClose} variant="contained" autoFocus>
+              Close
+            </Button>
+          </Stack>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }

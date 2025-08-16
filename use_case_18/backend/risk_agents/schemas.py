@@ -3,12 +3,6 @@ from pydantic import BaseModel, Field
 
 
 class OrchestratorOut(BaseModel):
-    """
-    Output model for the Orchestrator Agent.
-
-    * `reply` – the assistant’s chat response.
-    * `patch` – RFC-6902 JSON-Patch list (can be empty if nothing new this turn).
-    """
     reply: str
     patch: Optional[List[Dict[str, Any]]] = None
 
@@ -36,3 +30,4 @@ class FormStatus(BaseModel):
     completed: List[str]
     missing: List[str]
     quality_hints: List[str] = []
+    category_descriptions: Dict[str, str] = {}

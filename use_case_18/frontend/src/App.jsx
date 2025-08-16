@@ -13,12 +13,10 @@ import { connectAgent } from './api/ws';
 export default function App() {
   React.useEffect(() => { connectAgent(); }, []);
 
-  // Desktop MUI toolbar is ~64px tall. We size the surface to the remaining viewport
   const HEADER_HEIGHT = 64;
 
   return (
     <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
-      {/* Header centered at the top */}
       <AppBar position="static" elevation={0} color="transparent">
         <Toolbar
           sx={{
@@ -34,7 +32,6 @@ export default function App() {
         </Toolbar>
       </AppBar>
 
-      {/* Main two-column layout – fills width with small side margins, no page scroll */}
       <Box
         sx={{
           width: '100%',
@@ -50,12 +47,11 @@ export default function App() {
             display: 'flex',
             flexDirection: { xs: 'column', md: 'row' },
             width: '100%',
-            height: `calc(100vh - ${HEADER_HEIGHT}px)`, // exact fit under header
+            height: `calc(100vh - ${HEADER_HEIGHT}px)`,
             borderColor: 'grey.300',
-            overflow: 'hidden', // prevent page scrollbars
+            overflow: 'hidden', 
           }}
         >
-          {/* Left – Chat (equal width) */}
           <Box
             sx={{
               flex: 1,
