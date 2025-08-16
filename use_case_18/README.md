@@ -10,10 +10,14 @@ The platform, which again combines a React frontend with a FastAPI backend, comp
 * An interactive chat pane where a risk incident agent engages in a proactive conversation with a platform user to capture risk incident information
 * A structured risk incident reporting form which is updated in real-time as the conversation unfolds 
 
-Both components are located side by side in the frontend, affording thee user full transparency into what is being captured and allowing them to correct information through the interaction with the agent. Moreover, as an additional safeguard, the user must confirm the accuracy of the captured information 
-prior to the submission of the final risk incident report. 
+For the intake of a risk incident, the approach relies on two agents:
+* An orchestration agent, responsible for obtaining from the user the basic information about the risk incident 
+* A root cause specialist agent, tasked with engaging the user in a deep dive conversation about the root causes that led to the incident 
 
-Note: The app is currently in its alpha version. Additional tooling and potential specialist agents, supporting the main orchestrator agent, are intended to be introduced in the coming days. 
+Both agents update the respective risk incident form fields with information from the user. 
+With the chat pane and the risk incident form located side-by-side in the frontend, the user maintains full transparency into what is being captured and can through the dialogue with the agents correct information. 
+Moreover, as an additional safeguard, the user must confirm the accuracy of the captured information 
+prior to the submission of the final risk incident report. 
 
 For additional information about the workflow and the individual steps, please visit Regxelerator's use case library: https://regxelerator.com/solutions/use-case-library (coming soon)
 <br></br>
@@ -54,7 +58,8 @@ use_case_18/
 │       │                                       
 │       ├── agent_library/                      # Agent library
 │       │   ├── __init__.py                    
-│       │   └── orchestrator_agent.py           
+│       │   └── orchestrator_agent.py 
+        │   └── root_cause_agent.py 
 │       └── tools/                              # Agent tools
 │           ├── __init__.py                     
 │           └── incident_tools.py               
@@ -117,7 +122,7 @@ Run the application as follows:
 
 ```sh
 cd backend
-py uvicorn app:app --reload --port 8000
+py -m uvicorn app:app --reload --port 8000
 
 cd frontend
 npm run dev     
